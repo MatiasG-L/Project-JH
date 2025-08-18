@@ -19,6 +19,7 @@
 #include <string>
 
 #include "raylib.h"
+#include "Move.h"
 
 //------------------------------------------------------------------------------------
 // Program main entry point
@@ -40,7 +41,7 @@ int main(void)
     
     
     
-    InitWindow(screenWidth, screenHeight, " JohnH "); //initilisation of the window 
+    InitWindow(screenWidth, screenHeight, " |Pokemon Purple Version| "); //initilisation of the window 
 
     // NOTE: Textures MUST be loaded after Window initialization (OpenGL context is required)
     
