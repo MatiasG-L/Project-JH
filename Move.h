@@ -1,3 +1,4 @@
+#pragma once
 class Move{
     public:
     std::string name;
@@ -15,4 +16,6 @@ class Move{
         this->accuracy = accuracy;
         this->priority = priority;
     }
+    
+    Move(){}
 };
