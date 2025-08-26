@@ -51,11 +51,11 @@ int main(void)
     (health, name,  type,  level,  exp,  stage, spriteFront,  spriteBack, *moveset[4])
     */
      Pokemon Bulbasaur(50, "Bulbasaur", "Grass", 5, 0, 0, LoadTexture("Assets/Pokemon/Bulbasaur/Bulbasaur_front.png"), LoadTexture("Assets/Pokemon/Bulbasaur/Bulbasaur_back.png"), {&tackle, NULL, NULL, NULL});
-     Bulbasaur.spriteFront.width = 100;
-     Bulbasaur.spriteFront.height = 100;
+     Bulbasaur.spriteBack.width = 600;
+     Bulbasaur.spriteBack.height = 600;
      Pokemon Squirtle(50, "Squirtle", "Water", 5, 0, 0, LoadTexture("Assets/Pokemon/Squirtle/Squirtle_front.png"), LoadTexture("Assets/Pokemon/Squirtle/Squirtle_back.png"), {&tackle, NULL, NULL, NULL});
-     Squirtle.spriteFront.width = 700;
-     Squirtle.spriteFront.height = 700;
+     Squirtle.spriteFront.width = 500;
+     Squirtle.spriteFront.height = 500;
     
     //initializes camera values
     Camera2D camera = { 0 };
@@ -84,15 +84,15 @@ int main(void)
                 BeginMode2D(camera);
                 ClearBackground(RAYWHITE);
                 
-                DrawTextureEx(Bulbasaur.spriteBack, {-700,-300}, 0, 1, WHITE);
+                DrawTextureEx(Bulbasaur.spriteBack, {-700,-350}, 0, 1, WHITE);
                 
-                DrawTextureEx(Squirtle.spriteFront, {100,-600}, 0, 1, WHITE);
+                DrawTextureEx(Squirtle.spriteFront, {200,-500}, 0, 1, WHITE);
                 
-                DrawRectangle(-700, 130, 860, 300, BEIGE);
-                DrawRectangle(-680, 145, 400, 125, DEFCOLOR(50, 50, 50, 50));
-                DrawRectangle(-680, 285, 400, 125, DEFCOLOR(50, 50, 50, 50));
-                DrawRectangle(-260, 145, 400, 125, DEFCOLOR(50, 50, 50, 50));
-                DrawRectangle(-260, 285, 400, 125, DEFCOLOR(50, 50, 50, 50));
+                DrawRectangle(-750, 115, 925, 310, BEIGE);
+                DrawRectangle(-725, 255, 200, 150, DEFCOLOR(50, 50, 50, 50));
+                DrawRectangle(-500, 255, 200, 150, DEFCOLOR(50, 50, 50, 50));
+                DrawRectangle(-275, 255, 200, 150, DEFCOLOR(50, 50, 50, 50));
+                DrawRectangle(-50, 255, 200, 150, DEFCOLOR(50, 50, 50, 50));
                 
                 
                 
