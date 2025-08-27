@@ -65,6 +65,16 @@ int main(void)
      Squirtle.spriteFront.height = 500;
      Squirtle.spriteBack.width = 600;
      Squirtle.spriteBack.height = 600;
+     Pokemon Rayquaza(500, 500, "Rayquaza", "Dragon", 70, 0, 0, LoadTexture("Assets/Pokemon/Rayquaza/Rayquaza_front.png"), LoadTexture("Assets/Pokemon/Rayquaza/Rayquaza_back.png"), {&tackle, NULL, NULL, NULL});
+     Rayquaza.spriteBack.width = 600;
+     Rayquaza.spriteBack.height = 600;
+     Rayquaza.spriteFront.width = 500;
+     Rayquaza.spriteFront.height = 500;
+     Pokemon Treecko(50, 50, "Treecko", "Grass", 5, 0, 0, LoadTexture("Assets/Pokemon/Treecko/Treecko_front.png"), LoadTexture("Assets/Pokemon/Treecko/Treecko_back.png"), {&tackle, NULL, NULL, NULL});
+     Treecko.spriteBack.width = 600;
+     Treecko.spriteBack.height = 600;
+     Treecko.spriteFront.width = 500;
+     Treecko.spriteFront.height = 500;
     
     //initializes camera values
     Camera2D camera = { 0 };
@@ -76,10 +86,11 @@ int main(void)
     bool PartyMenu = false;
     
     bool loseE = false;
-    Pokemon *enemyTeam[6] = {&Squirtle, NULL, NULL, NULL, NULL, NULL};
-    Pokemon *party[6] = {&Bulbasaur, &Squirtle, NULL, NULL, NULL, NULL};
+    Pokemon *enemyTeam[6] = {&Rayquaza, NULL, NULL, NULL, NULL, NULL};
+    Pokemon *party[6] = {&Bulbasaur, &Treecko, NULL, NULL, &Rayquaza,  NULL};
     
     int activePKM = 0;
+    int activePKME = 0;
     SetTargetFPS(60);
     //--------------------------------------------------------------------------------------
     
@@ -126,9 +137,9 @@ int main(void)
                     
                     DrawTextureEx(party[activePKM]->spriteBack, {100,225}, 0, 1, WHITE);
                     
-                    DrawTextureEx(Squirtle.spriteFront, {1000,0}, 0, 1, WHITE);
+                    DrawTextureEx(enemyTeam[activePKME]->spriteFront, {1000,0}, 0, 1, WHITE);
                     
-                    DrawRectangle(25, 675, 1125, 450, GRAY);
+                    DrawRectangle(25, 675, 1125, 450,  DEFCOLOR(0,0,0,240));
                     
                     if(CheckCollisionPointRec({GetMouseX(), GetMouseY()}, {50, 700, 250, 150})){
                         DrawRectangle(50, 725, 250, 150, RED);
@@ -182,13 +193,20 @@ int main(void)
                     
                     std::string tempL = std::to_string(party[activePKM]->level);
                     DrawText(tempL.c_str(), 1500, 524, 40, BLACK);
+                    
+                    DrawText(enemyTeam[activePKME]->name.c_str(), 20, 150, 50, BLACK);
+                    
+                    std::string tempLE = std::to_string(enemyTeam[activePKME]->level);
+                    DrawText(tempLE.c_str(), 425, 153, 40, BLACK);
+                    
+                    DrawRectangle(250, 219,  lerp(0, 240, (float)enemyTeam[activePKME]->health/(float)enemyTeam[activePKME]->maxHealth), 16, GREEN);
                 }else{
                     
                     
                     if(CheckCollisionPointRec({GetMouseX(), GetMouseY()},{100, 50, 500, 200})){
                         DrawRectangleRounded({100, 50, 500, 200}, 0.2, 0, BLACK);
                          if(party[0] != NULL)DrawText(party[0]->name.c_str(), 150, 75, 50, WHITE);
-                         if(IsMouseButtonPressed(0)){
+                         if(IsMouseButtonPressed(0)&& party[0] != NULL){
                              activePKM = 0;
                              PartyMenu = false;
                          }
@@ -201,19 +219,19 @@ int main(void)
                     if(CheckCollisionPointRec({GetMouseX(), GetMouseY()},{100, 300, 500, 200})){
                         DrawRectangleRounded({100, 300, 500, 200}, 0.2, 0, BLACK);
                         if(party[1] != NULL)DrawText(party[1]->name.c_str(), 150, 325, 50, WHITE);
-                        if(IsMouseButtonPressed(0)){
+                        if(IsMouseButtonPressed(0) && party[1] != NULL){
                              activePKM = 1;
                              PartyMenu = false;
                          }
                     }else{
                         DrawRectangleRounded({100, 300, 500, 200}, 0.2, 0, DEFCOLOR(0,0,0,100));
-                        if(party[1] != NULL)DrawText(party[1]->name.c_str(), 150, 325, 50, DEFCOLOR(255,255,255,100));
+                        if(party[1] != NULL )DrawText(party[1]->name.c_str(), 150, 325, 50, DEFCOLOR(255,255,255,100));
                     }
                     
                     if(CheckCollisionPointRec({GetMouseX(), GetMouseY()},{100, 550, 500, 200})){
                         DrawRectangleRounded({100, 550, 500, 200}, 0.2, 0, BLACK);
                         if(party[2] != NULL)DrawText(party[2]->name.c_str(), 150, 575, 50, WHITE);
-                        if(IsMouseButtonPressed(0)){
+                        if(IsMouseButtonPressed(0) && party[2] != NULL){
                              activePKM = 2;
                              PartyMenu = false;
                          }
@@ -226,8 +244,8 @@ int main(void)
                     if(CheckCollisionPointRec({GetMouseX(), GetMouseY()}, {700, 50, 500, 200})){
                         DrawRectangleRounded({700, 50, 500, 200}, 0.2, 0, BLACK);
                         if(party[3] != NULL)DrawText(party[3]->name.c_str(), 750, 75, 50, WHITE);
-                        if(IsMouseButtonPressed(3)){
-                             activePKM = 0;
+                        if(IsMouseButtonPressed(0) && party[3] != NULL){
+                             activePKM = 3;
                              PartyMenu = false;
                          }
                     }else{
@@ -238,8 +256,8 @@ int main(void)
                     if(CheckCollisionPointRec({GetMouseX(), GetMouseY()},{700, 300, 500, 200})){
                         DrawRectangleRounded({700, 300, 500, 200}, 0.2, 0, BLACK);
                         if(party[4] != NULL)DrawText(party[4]->name.c_str(), 750, 325, 50, WHITE);
-                        if(IsMouseButtonPressed(4)){
-                             activePKM = 0;
+                        if(IsMouseButtonPressed(0)&& party[4] != NULL){
+                             activePKM = 4;
                              PartyMenu = false;
                          }
                     }else{
@@ -250,7 +268,7 @@ int main(void)
                     if(CheckCollisionPointRec({GetMouseX(), GetMouseY()},{700, 550, 500, 200})){
                         DrawRectangleRounded({700, 550, 500, 200}, 0.2, 0, BLACK);
                         if(party[5] != NULL)DrawText(party[5]->name.c_str(), 750, 575, 50, WHITE);
-                        if(IsMouseButtonPressed(0)){
+                        if(IsMouseButtonPressed(0)&& party[5] != NULL){
                              activePKM = 5;
                              PartyMenu = false;
                          }
