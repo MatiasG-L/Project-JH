@@ -5,6 +5,8 @@ class Pokemon{
     public:
     
     int health;
+    int maxHealth;
+    bool fainted;
     std::string name;
     std::string type;
     int level;
@@ -21,7 +23,7 @@ class Pokemon{
     Moveset moveset;
     int dexNum;
     
-    Pokemon(int health, std::string name, std::string type, int level, int exp, int stage, Texture2D spriteFront, Texture2D spriteBack, Moveset moveset){
+    Pokemon(int health, int maxHealth, std::string name, std::string type, int level, int exp, int stage, Texture2D spriteFront, Texture2D spriteBack, Moveset moveset){
         this->health = health;
         this->name = name;
         this->type = type;
@@ -31,6 +33,8 @@ class Pokemon{
         this->spriteFront = spriteFront;
         this->spriteBack = spriteBack;
         this->moveset = moveset;
+        this->maxHealth = maxHealth;
+        fainted = false;
     }
     
     

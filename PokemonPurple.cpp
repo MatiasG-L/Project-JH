@@ -46,60 +46,234 @@ int main(void)
     InitWindow(screenWidth, screenHeight, " |Pokemon Purple Version| "); //initilisation of the window 
 
     // NOTE: Textures MUST be loaded after Window initialization (OpenGL context is required)
+    
+    Texture2D baseE = LoadTexture("Assets/Battle Assets/Battle Base Grass Opp.png");
+    Texture2D baseP = LoadTexture("Assets/Battle Assets/Battle Base Grass Ally.png");
+    Texture2D HPboxP = LoadTexture("Assets/Battle Assets/PlayerHPBox.png");
+    Texture2D HPboxE = LoadTexture("Assets/Battle Assets/EnemyHPBox.png");
     /*
     Pokemon constructer paramaters:
     (health, name,  type,  level,  exp,  stage, spriteFront,  spriteBack, *moveset[4])
     */
-     Pokemon Bulbasaur(50, "Bulbasaur", "Grass", 5, 0, 0, LoadTexture("Assets/Pokemon/Bulbasaur/Bulbasaur_front.png"), LoadTexture("Assets/Pokemon/Bulbasaur/Bulbasaur_back.png"), {&tackle, NULL, NULL, NULL});
+     Pokemon Bulbasaur(50, 50, "Bulbasaur", "Grass", 5, 0, 0, LoadTexture("Assets/Pokemon/Bulbasaur/Bulbasaur_front.png"), LoadTexture("Assets/Pokemon/Bulbasaur/Bulbasaur_back.png"), {&tackle, NULL, NULL, NULL});
      Bulbasaur.spriteBack.width = 600;
      Bulbasaur.spriteBack.height = 600;
-     Pokemon Squirtle(50, "Squirtle", "Water", 5, 0, 0, LoadTexture("Assets/Pokemon/Squirtle/Squirtle_front.png"), LoadTexture("Assets/Pokemon/Squirtle/Squirtle_back.png"), {&tackle, NULL, NULL, NULL});
+     Bulbasaur.spriteFront.width = 500;
+     Bulbasaur.spriteFront.height = 500;
+     Pokemon Squirtle(50, 50, "Squirtle", "Water", 5, 0, 0, LoadTexture("Assets/Pokemon/Squirtle/Squirtle_front.png"), LoadTexture("Assets/Pokemon/Squirtle/Squirtle_back.png"), {&tackle, NULL, NULL, NULL});
      Squirtle.spriteFront.width = 500;
      Squirtle.spriteFront.height = 500;
+     Squirtle.spriteBack.width = 600;
+     Squirtle.spriteBack.height = 600;
     
     //initializes camera values
     Camera2D camera = { 0 };
     camera.offset = {screenWidth/2.0f, screenHeight/2.0f };
     camera.rotation = 0.0f;
     camera.zoom = 1.0f;
-    camera.target = {0,0};
-
+    camera.target = {800,450};
     
+    bool PartyMenu = false;
+    
+    bool loseE = false;
+    Pokemon *enemyTeam[6] = {&Squirtle, NULL, NULL, NULL, NULL, NULL};
+    Pokemon *party[6] = {&Bulbasaur, &Squirtle, NULL, NULL, NULL, NULL};
+    
+    int activePKM = 0;
     SetTargetFPS(60);
     //--------------------------------------------------------------------------------------
     
     while (!WindowShouldClose()){    // Detect window close button or ESC key
     
-    
-    
+    int checkTeam = 0;
+    for(int i = 0; i < 6; i++){
+        if(party[i] == NULL || party[i]->fainted){
+            checkTeam++;
+        }
+    }
+    if(checkTeam == 6) return 0;
     
       // Draw, where the scene actually gets rendered and drawn out
 
       
         BeginDrawing();
-        
+            
+            
+            if(IsKeyPressed(KEY_BACKSPACE)) party[activePKM]->health -= 10;
         
             
             //anything drawn inside of the BeginMode2D() and EndMode2D() are going to be drawn onto the world and wont move with the camera but anything drawn after EndMode2D() is drawn onto the screen and moves with the camera useful for UI
                 BeginMode2D(camera);
-                ClearBackground(RAYWHITE);
                 
-                DrawTextureEx(Bulbasaur.spriteBack, {-700,-350}, 0, 1, WHITE);
+                if(PartyMenu)ClearBackground(GRAY);
+                else ClearBackground(DARKGREEN);
                 
-                DrawTextureEx(Squirtle.spriteFront, {200,-500}, 0, 1, WHITE);
                 
-                DrawRectangle(-750, 115, 925, 310, BEIGE);
-                DrawRectangle(-725, 255, 200, 150, DEFCOLOR(50, 50, 50, 50));
-                DrawRectangle(-500, 255, 200, 150, DEFCOLOR(50, 50, 50, 50));
-                DrawRectangle(-275, 255, 200, 150, DEFCOLOR(50, 50, 50, 50));
-                DrawRectangle(-50, 255, 200, 150, DEFCOLOR(50, 50, 50, 50));
+               
+                
                 
                 
                 
                 
                 EndMode2D();
-            
-            
+                
+                
+                if(!PartyMenu){
+                    DrawTextureEx(baseE, {1000,325}, 0, 4.5, WHITE);
+                    DrawTextureEx(baseP, {37,540}, 0, 4.5, WHITE);
+                    
+                    
+                    
+                    DrawTextureEx(party[activePKM]->spriteBack, {100,225}, 0, 1, WHITE);
+                    
+                    DrawTextureEx(Squirtle.spriteFront, {1000,0}, 0, 1, WHITE);
+                    
+                    DrawRectangle(25, 675, 1125, 450, GRAY);
+                    
+                    if(CheckCollisionPointRec({GetMouseX(), GetMouseY()}, {50, 700, 250, 150})){
+                        DrawRectangle(50, 725, 250, 150, RED);
+                        DrawText("Fight", 75, 775, 50, WHITE);
+                        
+                    }else{
+                        DrawRectangleLines(50, 700, 250, 150, RED);
+                        DrawText("Fight", 75, 750, 50, RED);
+                    }
+                    
+                    if(CheckCollisionPointRec({GetMouseX(), GetMouseY()},{325, 700, 250, 150})){
+                        DrawRectangle(325, 725, 250, 150, ORANGE);
+                        DrawText("Bag", 350, 775, 50, WHITE);
+                        
+                    }else{
+                        DrawRectangleLines(325, 700, 250, 150, ORANGE);
+                        DrawText("Bag", 350, 750, 50, ORANGE);
+                    }
+                    
+                    if(CheckCollisionPointRec({GetMouseX(), GetMouseY()},{600, 700, 250, 150})){
+                        DrawRectangle(600, 725, 250, 150, GREEN);
+                        DrawText("Pokemon", 625, 775, 50, WHITE);
+                        if(IsMouseButtonPressed(0))PartyMenu = true;
+                        
+                    }else{
+                        DrawRectangleLines(600, 700, 250, 150, GREEN);
+                        DrawText("Pokemon", 625, 750, 50, GREEN);
+                    }
+                    
+                    if(CheckCollisionPointRec({GetMouseX(), GetMouseY()},{875, 700, 250, 150})){
+                        DrawRectangle(875, 725, 250, 150, BLUE);
+                        DrawText("Run", 900, 775, 50, WHITE);
+                        
+                    }else{
+                        DrawRectangleLines(875, 700, 250, 150, BLUE);
+                        DrawText("Run", 900, 750, 50, BLUE);
+                    }
+                    
+                    
+                    
+                    DrawTextureEx(HPboxP, {1025,475}, 0, 4.5, WHITE);
+                    DrawTextureEx(HPboxE, {0,100}, 0, 5, WHITE);
+                    
+                    DrawRectangle(1349, 588,  lerp(0, 216, (float)party[activePKM]->health/(float)party[activePKM]->maxHealth), 13, GREEN);
+                    
+                    DrawText(party[activePKM]->name.c_str(), 1100,524, 50, BLACK);
+                    std::string temp = std::to_string(party[activePKM]->health);
+                    DrawText(temp.c_str(), 1325, 615, 40, BLACK);
+                    std::string tempM = std::to_string(party[activePKM]->maxHealth);
+                    DrawText(tempM.c_str(), 1465, 615, 40, BLACK);
+                    
+                    std::string tempL = std::to_string(party[activePKM]->level);
+                    DrawText(tempL.c_str(), 1500, 524, 40, BLACK);
+                }else{
+                    
+                    
+                    if(CheckCollisionPointRec({GetMouseX(), GetMouseY()},{100, 50, 500, 200})){
+                        DrawRectangleRounded({100, 50, 500, 200}, 0.2, 0, BLACK);
+                         if(party[0] != NULL)DrawText(party[0]->name.c_str(), 150, 75, 50, WHITE);
+                         if(IsMouseButtonPressed(0)){
+                             activePKM = 0;
+                             PartyMenu = false;
+                         }
+                        
+                    }else{
+                        DrawRectangleRounded({100, 50, 500, 200}, 0.2, 0, DEFCOLOR(0,0,0,100));
+                        if(party[0] != NULL)DrawText(party[0]->name.c_str(), 150, 75, 50, DEFCOLOR(255,255,255,100));
+                    }
+                    
+                    if(CheckCollisionPointRec({GetMouseX(), GetMouseY()},{100, 300, 500, 200})){
+                        DrawRectangleRounded({100, 300, 500, 200}, 0.2, 0, BLACK);
+                        if(party[1] != NULL)DrawText(party[1]->name.c_str(), 150, 325, 50, WHITE);
+                        if(IsMouseButtonPressed(0)){
+                             activePKM = 1;
+                             PartyMenu = false;
+                         }
+                    }else{
+                        DrawRectangleRounded({100, 300, 500, 200}, 0.2, 0, DEFCOLOR(0,0,0,100));
+                        if(party[1] != NULL)DrawText(party[1]->name.c_str(), 150, 325, 50, DEFCOLOR(255,255,255,100));
+                    }
+                    
+                    if(CheckCollisionPointRec({GetMouseX(), GetMouseY()},{100, 550, 500, 200})){
+                        DrawRectangleRounded({100, 550, 500, 200}, 0.2, 0, BLACK);
+                        if(party[2] != NULL)DrawText(party[2]->name.c_str(), 150, 575, 50, WHITE);
+                        if(IsMouseButtonPressed(0)){
+                             activePKM = 2;
+                             PartyMenu = false;
+                         }
+                    }else{
+                        DrawRectangleRounded({100, 550, 500, 200}, 0.2, 0, DEFCOLOR(0,0,0,100));
+                        if(party[2] != NULL)DrawText(party[2]->name.c_str(), 150, 575, 50, DEFCOLOR(255,255,255,100));
+                    }
+                    
+                    
+                    if(CheckCollisionPointRec({GetMouseX(), GetMouseY()}, {700, 50, 500, 200})){
+                        DrawRectangleRounded({700, 50, 500, 200}, 0.2, 0, BLACK);
+                        if(party[3] != NULL)DrawText(party[3]->name.c_str(), 750, 75, 50, WHITE);
+                        if(IsMouseButtonPressed(3)){
+                             activePKM = 0;
+                             PartyMenu = false;
+                         }
+                    }else{
+                        DrawRectangleRounded({700, 50, 500, 200}, 0.2, 0, DEFCOLOR(0,0,0,100));
+                        if(party[3] != NULL)DrawText(party[3]->name.c_str(), 750, 75, 50, DEFCOLOR(255,255,255,100));
+                    }
+                    
+                    if(CheckCollisionPointRec({GetMouseX(), GetMouseY()},{700, 300, 500, 200})){
+                        DrawRectangleRounded({700, 300, 500, 200}, 0.2, 0, BLACK);
+                        if(party[4] != NULL)DrawText(party[4]->name.c_str(), 750, 325, 50, WHITE);
+                        if(IsMouseButtonPressed(4)){
+                             activePKM = 0;
+                             PartyMenu = false;
+                         }
+                    }else{
+                        DrawRectangleRounded({700, 300, 500, 200}, 0.2, 0, DEFCOLOR(0,0,0,100));
+                        if(party[4] != NULL)DrawText(party[4]->name.c_str(), 750, 325, 50,DEFCOLOR(255,255,255,100));
+                    }
+                    
+                    if(CheckCollisionPointRec({GetMouseX(), GetMouseY()},{700, 550, 500, 200})){
+                        DrawRectangleRounded({700, 550, 500, 200}, 0.2, 0, BLACK);
+                        if(party[5] != NULL)DrawText(party[5]->name.c_str(), 750, 575, 50, WHITE);
+                        if(IsMouseButtonPressed(0)){
+                             activePKM = 5;
+                             PartyMenu = false;
+                         }
+                    }else{
+                        DrawRectangleRounded({700, 550, 500, 200}, 0.2, 0, DEFCOLOR(0,0,0,100));
+                        if(party[5] != NULL)DrawText(party[5]->name.c_str(), 750, 575, 50, DEFCOLOR(255,255,255,100));
+                    }
+                    
+                    
+                    if(CheckCollisionPointRec({GetMouseX(), GetMouseY()},{100, 800, 200, 75})){
+                        
+                        DrawRectangle(100, 800, 200, 75, RED);
+                        DrawText("Cancel", 110, 810, 50, WHITE);
+                        if(IsMouseButtonPressed(0))PartyMenu = false;
+                        
+                    }else{
+                       DrawRectangleLines(100, 800, 200, 75, RED);
+                        DrawText("Cancel", 110, 810, 50, RED);
+                        
+                    }
+                  
+
+                }
             
                 
             
