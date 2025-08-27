@@ -75,6 +75,31 @@ int main(void)
      Treecko.spriteBack.height = 600;
      Treecko.spriteFront.width = 500;
      Treecko.spriteFront.height = 500;
+     Pokemon Mudkip(50, 50, "Mudkip", "Water", 5, 0, 0, LoadTexture("Assets/Pokemon/Mudkip/Mudkip_front.png"), LoadTexture("Assets/Pokemon/Mudkip/Mudkip_back.png"), {&tackle, NULL, NULL, NULL});
+     Mudkip.spriteBack.width = 600;
+     Mudkip.spriteBack.height = 600;
+     Mudkip.spriteFront.width = 500;
+     Mudkip.spriteFront.height = 500;
+     Pokemon Torchic(50, 50, "Torchic", "Fire", 5, 0, 0, LoadTexture("Assets/Pokemon/Torchic/Torchic_front.png"), LoadTexture("Assets/Pokemon/Torchic/Torchic_back.png"), {&tackle, NULL, NULL, NULL});
+     Torchic.spriteBack.width = 600;
+     Torchic.spriteBack.height = 600;
+     Torchic.spriteFront.width = 500;
+     Torchic.spriteFront.height = 500;
+     Pokemon Absol(50, 50, "Absol", "Dark", 5, 0, 0, LoadTexture("Assets/Pokemon/Absol/Absol_front.png"), LoadTexture("Assets/Pokemon/Absol/Absol_back.png"), {&tackle, NULL, NULL, NULL});
+     Absol.spriteBack.width = 600;
+     Absol.spriteBack.height = 600;
+     Absol.spriteFront.width = 500;
+     Absol.spriteFront.height = 500;
+     Pokemon Shroomish(50, 50, "Shroomish", "Poison", 5, 0, 0, LoadTexture("Assets/Pokemon/Shroomish/Shroomish_front.png"), LoadTexture("Assets/Pokemon/Shroomish/Shroomish_back.png"), {&tackle, NULL, NULL, NULL});
+     Shroomish.spriteBack.width = 600;
+     Shroomish.spriteBack.height = 600;
+     Shroomish.spriteFront.width = 500;
+     Shroomish.spriteFront.height = 500;
+     Pokemon Raltz(50, 50, "Raltz", "Poison", 5, 0, 0, LoadTexture("Assets/Pokemon/Raltz/Raltz_front.png"), LoadTexture("Assets/Pokemon/Raltz/Raltz_back.png"), {&tackle, NULL, NULL, NULL});
+     Raltz.spriteBack.width = 600;
+     Raltz.spriteBack.height = 600;
+     Raltz.spriteFront.width = 500;
+     Raltz.spriteFront.height = 500;
     
     //initializes camera values
     Camera2D camera = { 0 };
@@ -84,10 +109,11 @@ int main(void)
     camera.target = {800,450};
     
     bool PartyMenu = false;
+    bool moveMenu = false;
     
     bool loseE = false;
     Pokemon *enemyTeam[6] = {&Rayquaza, NULL, NULL, NULL, NULL, NULL};
-    Pokemon *party[6] = {&Bulbasaur, &Treecko, NULL, NULL, &Rayquaza,  NULL};
+    Pokemon *party[6] = {&Shroomish, &Raltz, &Torchic, &Mudkip, &Rayquaza, &Absol};
     
     int activePKM = 0;
     int activePKME = 0;
@@ -141,43 +167,59 @@ int main(void)
                     
                     DrawRectangle(25, 675, 1125, 450,  DEFCOLOR(0,0,0,240));
                     
-                    if(CheckCollisionPointRec({GetMouseX(), GetMouseY()}, {50, 700, 250, 150})){
-                        DrawRectangle(50, 725, 250, 150, RED);
-                        DrawText("Fight", 75, 775, 50, WHITE);
+                    if(!moveMenu){
+                        if(CheckCollisionPointRec({GetMouseX(), GetMouseY()}, {50, 700, 250, 150})){
+                            DrawRectangle(50, 725, 250, 150, RED);
+                            DrawText("Fight", 75, 775, 50, WHITE);
+                            if(IsMouseButtonPressed(0)){
+                                 moveMenu = true;
+                            }
+                            
+                        }else{
+                            DrawRectangleLines(50, 700, 250, 150, RED);
+                            DrawText("Fight", 75, 750, 50, RED);
+                        }
                         
-                    }else{
-                        DrawRectangleLines(50, 700, 250, 150, RED);
-                        DrawText("Fight", 75, 750, 50, RED);
-                    }
-                    
-                    if(CheckCollisionPointRec({GetMouseX(), GetMouseY()},{325, 700, 250, 150})){
-                        DrawRectangle(325, 725, 250, 150, ORANGE);
-                        DrawText("Bag", 350, 775, 50, WHITE);
+                        if(CheckCollisionPointRec({GetMouseX(), GetMouseY()},{325, 700, 250, 150})){
+                            DrawRectangle(325, 725, 250, 150, ORANGE);
+                            DrawText("Bag", 350, 775, 50, WHITE);
+                            
+                        }else{
+                            DrawRectangleLines(325, 700, 250, 150, ORANGE);
+                            DrawText("Bag", 350, 750, 50, ORANGE);
+                        }
                         
-                    }else{
-                        DrawRectangleLines(325, 700, 250, 150, ORANGE);
-                        DrawText("Bag", 350, 750, 50, ORANGE);
-                    }
-                    
-                    if(CheckCollisionPointRec({GetMouseX(), GetMouseY()},{600, 700, 250, 150})){
-                        DrawRectangle(600, 725, 250, 150, GREEN);
-                        DrawText("Pokemon", 625, 775, 50, WHITE);
-                        if(IsMouseButtonPressed(0))PartyMenu = true;
+                        if(CheckCollisionPointRec({GetMouseX(), GetMouseY()},{600, 700, 250, 150})){
+                            DrawRectangle(600, 725, 250, 150, GREEN);
+                            DrawText("Pokemon", 625, 775, 50, WHITE);
+                            if(IsMouseButtonPressed(0))PartyMenu = true;
+                            
+                        }else{
+                            DrawRectangleLines(600, 700, 250, 150, GREEN);
+                            DrawText("Pokemon", 625, 750, 50, GREEN);
+                        }
                         
+                        if(CheckCollisionPointRec({GetMouseX(), GetMouseY()},{875, 700, 250, 150})){
+                            DrawRectangle(875, 725, 250, 150, BLUE);
+                            DrawText("Run", 900, 775, 50, WHITE);
+                            
+                        }else{
+                            DrawRectangleLines(875, 700, 250, 150, BLUE);
+                            DrawText("Run", 900, 750, 50, BLUE);
+                        }
                     }else{
-                        DrawRectangleLines(600, 700, 250, 150, GREEN);
-                        DrawText("Pokemon", 625, 750, 50, GREEN);
-                    }
-                    
-                    if(CheckCollisionPointRec({GetMouseX(), GetMouseY()},{875, 700, 250, 150})){
-                        DrawRectangle(875, 725, 250, 150, BLUE);
-                        DrawText("Run", 900, 775, 50, WHITE);
+                        if(CheckCollisionPointRec({GetMouseX(), GetMouseY()},{1200, 700, 250, 100})){
                         
-                    }else{
-                        DrawRectangleLines(875, 700, 250, 150, BLUE);
-                        DrawText("Run", 900, 750, 50, BLUE);
+                        DrawRectangle(1200, 725, 250, 100, RED);
+                        DrawText("Cancel", 1240, 750, 50, WHITE);
+                        if(IsMouseButtonPressed(0))moveMenu = false;
+                        
+                        }else{
+                        DrawRectangleLines(1200, 700, 250, 100, RED);
+                        DrawText("Cancel", 1240, 725, 50, RED);
+                        
+                        }  
                     }
-                    
                     
                     
                     DrawTextureEx(HPboxP, {1025,475}, 0, 4.5, WHITE);
@@ -200,7 +242,7 @@ int main(void)
                     DrawText(tempLE.c_str(), 425, 153, 40, BLACK);
                     
                     DrawRectangle(250, 219,  lerp(0, 240, (float)enemyTeam[activePKME]->health/(float)enemyTeam[activePKME]->maxHealth), 16, GREEN);
-                }else{
+                }else if(!moveMenu){
                     
                     
                     if(CheckCollisionPointRec({GetMouseX(), GetMouseY()},{100, 50, 500, 200})){
@@ -291,6 +333,8 @@ int main(void)
                     }
                   
 
+                }else{
+                    
                 }
             
                 
