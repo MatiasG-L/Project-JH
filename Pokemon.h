@@ -5,6 +5,17 @@ class Pokemon{
     public:
     
     int health;
+    typedef struct{
+        int HP;
+        int Attack;
+        int Defense;
+        int SpAttack;
+        int SpDefense;
+        int speed;
+    }Stats;
+    
+    Stats stats;
+    
     int maxHealth;
     bool fainted;
     std::string name;
@@ -23,7 +34,7 @@ class Pokemon{
     Moveset moveset;
     int dexNum;
     
-    Pokemon(int health, int maxHealth, std::string name, std::string type, int level, int exp, int stage, Texture2D spriteFront, Texture2D spriteBack, Moveset moveset){
+    Pokemon(int health, int maxHealth, std::string name, std::string type, int level, int exp, int stage, Texture2D spriteFront, Texture2D spriteBack, Moveset moveset, Stats stats){
         this->health = health;
         this->name = name;
         this->type = type;
@@ -34,6 +45,7 @@ class Pokemon{
         this->spriteBack = spriteBack;
         this->moveset = moveset;
         this->maxHealth = maxHealth;
+        this->stats = stats;
         fainted = false;
     }
     

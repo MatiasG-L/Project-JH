@@ -53,49 +53,49 @@ int main(void)
     Texture2D HPboxE = LoadTexture("Assets/Battle Assets/EnemyHPBox.png");
     /*
     Pokemon constructer paramaters:
-    (health, name,  type,  level,  exp,  stage, spriteFront,  spriteBack, *moveset[4])
+    (health, name,  type,  level,  exp,  stage, spriteFront,  spriteBack, *moveset[4], stats{})
     */
-     Pokemon Bulbasaur(50, 50, "Bulbasaur", "Grass", 5, 0, 0, LoadTexture("Assets/Pokemon/Bulbasaur/Bulbasaur_front.png"), LoadTexture("Assets/Pokemon/Bulbasaur/Bulbasaur_back.png"), {&tackle, NULL, NULL, NULL});
+     Pokemon Bulbasaur(50, 50, "Bulbasaur", "Grass", 5, 0, 0, LoadTexture("Assets/Pokemon/Bulbasaur/Bulbasaur_front.png"), LoadTexture("Assets/Pokemon/Bulbasaur/Bulbasaur_back.png"), {&tackle, NULL, NULL, NULL}, {45,49,49,65,65,45});
      Bulbasaur.spriteBack.width = 600;
      Bulbasaur.spriteBack.height = 600;
      Bulbasaur.spriteFront.width = 500;
      Bulbasaur.spriteFront.height = 500;
-     Pokemon Squirtle(50, 50, "Squirtle", "Water", 5, 0, 0, LoadTexture("Assets/Pokemon/Squirtle/Squirtle_front.png"), LoadTexture("Assets/Pokemon/Squirtle/Squirtle_back.png"), {&tackle, NULL, NULL, NULL});
+     Pokemon Squirtle(50, 50, "Squirtle", "Water", 5, 0, 0, LoadTexture("Assets/Pokemon/Squirtle/Squirtle_front.png"), LoadTexture("Assets/Pokemon/Squirtle/Squirtle_back.png"), {&tackle, NULL, NULL, NULL},{44,48,65,50,64,43});
      Squirtle.spriteFront.width = 500;
      Squirtle.spriteFront.height = 500;
      Squirtle.spriteBack.width = 600;
      Squirtle.spriteBack.height = 600;
-     Pokemon Rayquaza(500, 500, "Rayquaza", "Dragon", 70, 0, 0, LoadTexture("Assets/Pokemon/Rayquaza/Rayquaza_front.png"), LoadTexture("Assets/Pokemon/Rayquaza/Rayquaza_back.png"), {&tackle, NULL, NULL, NULL});
+     Pokemon Rayquaza(500, 500, "Rayquaza", "Dragon", 70, 0, 0, LoadTexture("Assets/Pokemon/Rayquaza/Rayquaza_front.png"), LoadTexture("Assets/Pokemon/Rayquaza/Rayquaza_back.png"), {&tackle, NULL, NULL, NULL},{105,150,90,150,90,95});
      Rayquaza.spriteBack.width = 600;
      Rayquaza.spriteBack.height = 600;
      Rayquaza.spriteFront.width = 500;
      Rayquaza.spriteFront.height = 500;
-     Pokemon Treecko(50, 50, "Treecko", "Grass", 5, 0, 0, LoadTexture("Assets/Pokemon/Treecko/Treecko_front.png"), LoadTexture("Assets/Pokemon/Treecko/Treecko_back.png"), {&tackle, NULL, NULL, NULL});
+     Pokemon Treecko(50, 50, "Treecko", "Grass", 5, 0, 0, LoadTexture("Assets/Pokemon/Treecko/Treecko_front.png"), LoadTexture("Assets/Pokemon/Treecko/Treecko_back.png"), {&tackle, NULL, NULL, NULL}, {40,45,35,60,65,70});
      Treecko.spriteBack.width = 600;
      Treecko.spriteBack.height = 600;
      Treecko.spriteFront.width = 500;
      Treecko.spriteFront.height = 500;
-     Pokemon Mudkip(50, 50, "Mudkip", "Water", 5, 0, 0, LoadTexture("Assets/Pokemon/Mudkip/Mudkip_front.png"), LoadTexture("Assets/Pokemon/Mudkip/Mudkip_back.png"), {&tackle, NULL, NULL, NULL});
+     Pokemon Mudkip(50, 50, "Mudkip", "Water", 5, 0, 0, LoadTexture("Assets/Pokemon/Mudkip/Mudkip_front.png"), LoadTexture("Assets/Pokemon/Mudkip/Mudkip_back.png"), {&tackle, NULL, NULL, NULL},{50,70,50,50,50,40});
      Mudkip.spriteBack.width = 600;
      Mudkip.spriteBack.height = 600;
      Mudkip.spriteFront.width = 500;
      Mudkip.spriteFront.height = 500;
-     Pokemon Torchic(50, 50, "Torchic", "Fire", 5, 0, 0, LoadTexture("Assets/Pokemon/Torchic/Torchic_front.png"), LoadTexture("Assets/Pokemon/Torchic/Torchic_back.png"), {&tackle, NULL, NULL, NULL});
+     Pokemon Torchic(50, 50, "Torchic", "Fire", 5, 0, 0, LoadTexture("Assets/Pokemon/Torchic/Torchic_front.png"), LoadTexture("Assets/Pokemon/Torchic/Torchic_back.png"), {&tackle, NULL, NULL, NULL},{45,60,40,70,50,45});
      Torchic.spriteBack.width = 600;
      Torchic.spriteBack.height = 600;
      Torchic.spriteFront.width = 500;
      Torchic.spriteFront.height = 500;
-     Pokemon Absol(50, 50, "Absol", "Dark", 5, 0, 0, LoadTexture("Assets/Pokemon/Absol/Absol_front.png"), LoadTexture("Assets/Pokemon/Absol/Absol_back.png"), {&tackle, NULL, NULL, NULL});
+     Pokemon Absol(50, 50, "Absol", "Dark", 5, 0, 0, LoadTexture("Assets/Pokemon/Absol/Absol_front.png"), LoadTexture("Assets/Pokemon/Absol/Absol_back.png"), {&tackle, NULL, NULL, NULL},{65,130,60,75,60,75});
      Absol.spriteBack.width = 600;
      Absol.spriteBack.height = 600;
      Absol.spriteFront.width = 500;
      Absol.spriteFront.height = 500;
-     Pokemon Shroomish(50, 50, "Shroomish", "Poison", 5, 0, 0, LoadTexture("Assets/Pokemon/Shroomish/Shroomish_front.png"), LoadTexture("Assets/Pokemon/Shroomish/Shroomish_back.png"), {&tackle, NULL, NULL, NULL});
+     Pokemon Shroomish(50, 50, "Shroomish", "Poison", 5, 0, 0, LoadTexture("Assets/Pokemon/Shroomish/Shroomish_front.png"), LoadTexture("Assets/Pokemon/Shroomish/Shroomish_back.png"), {&tackle, NULL, NULL, NULL}, {60,40,60,40,60,35});
      Shroomish.spriteBack.width = 600;
      Shroomish.spriteBack.height = 600;
      Shroomish.spriteFront.width = 500;
      Shroomish.spriteFront.height = 500;
-     Pokemon Raltz(50, 50, "Raltz", "Poison", 5, 0, 0, LoadTexture("Assets/Pokemon/Raltz/Raltz_front.png"), LoadTexture("Assets/Pokemon/Raltz/Raltz_back.png"), {&tackle, NULL, NULL, NULL});
+     Pokemon Raltz(50, 50, "Raltz", "Poison", 5, 0, 0, LoadTexture("Assets/Pokemon/Raltz/Raltz_front.png"), LoadTexture("Assets/Pokemon/Raltz/Raltz_back.png"), {&tackle, NULL, NULL, NULL}, {28, 25,25, 45,35,40});
      Raltz.spriteBack.width = 600;
      Raltz.spriteBack.height = 600;
      Raltz.spriteFront.width = 500;
@@ -208,6 +208,33 @@ int main(void)
                             DrawText("Run", 900, 750, 50, BLUE);
                         }
                     }else{
+                        //moves
+                        if(CheckCollisionPointRec({GetMouseX(), GetMouseY()}, {50, 700, 250, 150})){
+                            DrawRectangle(50, 725, 250, 150, WHITE);
+                            DrawText(party[activePKM]->moveset.Move1->name.c_str(), 75, 775, 50, BLACK);
+                            if(IsMouseButtonPressed(0)){
+                                 moveMenu = true;
+                            }
+                            
+                        }else{
+                            DrawRectangleLines(50, 700, 250, 150, WHITE);
+                            DrawText(party[activePKM]->moveset.Move1->name.c_str(), 75, 750, 50, WHITE);
+                        }
+                        
+                        
+                        
+                        if(CheckCollisionPointRec({GetMouseX(), GetMouseY()},{1200, 700, 250, 100})){
+                     
+                        DrawRectangle(1200, 725, 250, 100, RED);
+                        DrawText("Cancel", 1240, 750, 50, WHITE);
+                        if(IsMouseButtonPressed(0))moveMenu = false;
+                        
+                        }else{
+                        DrawRectangleLines(1200, 700, 250, 100, RED);
+                        DrawText("Cancel", 1240, 725, 50, RED);
+                        
+                        }  
+                        
                         if(CheckCollisionPointRec({GetMouseX(), GetMouseY()},{1200, 700, 250, 100})){
                         
                         DrawRectangle(1200, 725, 250, 100, RED);
@@ -318,6 +345,9 @@ int main(void)
                         DrawRectangleRounded({700, 550, 500, 200}, 0.2, 0, DEFCOLOR(0,0,0,100));
                         if(party[5] != NULL)DrawText(party[5]->name.c_str(), 750, 575, 50, DEFCOLOR(255,255,255,100));
                     }
+                    
+                    
+                    
                     
                     
                     if(CheckCollisionPointRec({GetMouseX(), GetMouseY()},{100, 800, 200, 75})){
