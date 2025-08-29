@@ -70,6 +70,10 @@ int main(void)
     bool PartyMenu = false;
     bool moveMenu = false;
     
+    bool turn;
+    
+    
+    
     bool loseE = false;
     Pokemon *enemyTeam[6] = {new Pokemon(pokedex[GetRandomValue(0,8)]), NULL, NULL, NULL, NULL, NULL};
     Pokemon *party[6] = {new Pokemon(pokedex[GetRandomValue(0,8)]), new Pokemon(pokedex[GetRandomValue(0,8)]), new Pokemon(pokedex[GetRandomValue(0,8)]),NULL, NULL,NULL};
@@ -78,6 +82,13 @@ int main(void)
     int activePKME = 0;
     SetTargetFPS(60);
     //--------------------------------------------------------------------------------------
+    
+    if(party[activePKM]->stats.Speed > enemyTeam[activePKME]->stats.Speed){
+        turn = true;
+    }else{
+        turn = false;
+    }
+    
     
     while (!WindowShouldClose()){    // Detect window close button or ESC key
     
@@ -88,6 +99,39 @@ int main(void)
         }
     }
     if(checkTeam == 6) return 0;
+    
+    
+    if(!turn){
+        int index = 0;
+        if(enemyTeam[activePKME]->moveset.Move1 != NULL){
+           index++;
+        }
+        if(enemyTeam[activePKME]->moveset.Move2 != NULL){
+           index++;
+        }
+        if(enemyTeam[activePKME]->moveset.Move3 != NULL){
+           index++;
+        }
+        if(enemyTeam[activePKME]->moveset.Move4 != NULL){
+           index++;
+        }
+        int moveNum = GetRandomValue(1,index);
+        
+        if(moveNum == 1){
+            party[activePKM]->takeDamage(enemyTeam[activePKME]->moveset.Move1, enemyTeam[activePKME]);
+            turn = true;
+        }else if(moveNum == 2){
+            party[activePKM]->takeDamage(enemyTeam[activePKME]->moveset.Move1, enemyTeam[activePKME]);
+            turn = true;
+        }else if(moveNum == 3){
+            party[activePKM]->takeDamage(enemyTeam[activePKME]->moveset.Move1, enemyTeam[activePKME]);
+            turn = true;
+        }else if(moveNum == 4){
+            party[activePKM]->takeDamage(enemyTeam[activePKME]->moveset.Move1, enemyTeam[activePKME]);
+            turn = true;
+        }
+        
+    }
     
       // Draw, where the scene actually gets rendered and drawn out
 
@@ -224,9 +268,10 @@ int main(void)
                                     DrawText(temp.c_str(), 75, 800, 25, BROWN);
                                 }
                                 
-                                if(IsMouseButtonPressed(0)){
+                                if(IsMouseButtonPressed(0) && party[activePKM]->moveset.Move1->pp > 0){
                                      enemyTeam[activePKME]->takeDamage(party[activePKM]->moveset.Move1, party[activePKM]);
                                      moveMenu = false;
+                                     turn = false;
                                 }
                                 
                             }else{
@@ -317,9 +362,10 @@ int main(void)
                                     DrawText(temp.c_str(), 350, 800, 25, BROWN);
                                 }
                                 
-                                if(IsMouseButtonPressed(0)){
+                                if(IsMouseButtonPressed(0) && party[activePKM]->moveset.Move2->pp > 0){
                                      enemyTeam[activePKME]->takeDamage(party[activePKM]->moveset.Move2, party[activePKM]);
                                      moveMenu = false;
+                                     turn = false;
                                 }
                                 
                             }else{
@@ -410,9 +456,10 @@ int main(void)
                                     DrawText(temp.c_str(), 650, 800, 25, BROWN);
                                 }
                                 
-                                if(IsMouseButtonPressed(0)){
+                                if(IsMouseButtonPressed(0)  && party[activePKM]->moveset.Move3->pp > 0){
                                      enemyTeam[activePKME]->takeDamage(party[activePKM]->moveset.Move3, party[activePKM]);
                                      moveMenu = false;
+                                     turn = false;
                                 }
                                 
                             }else{
@@ -505,9 +552,10 @@ int main(void)
                                     DrawText(temp.c_str(), 900, 800, 25, BROWN);
                                 }
                                 
-                                if(IsMouseButtonPressed(0)){
+                                if(IsMouseButtonPressed(0) && party[activePKM]->moveset.Move4->pp > 0){
                                      enemyTeam[activePKME]->takeDamage(party[activePKM]->moveset.Move4, party[activePKM]);
                                      moveMenu = false;
+                                     turn = false;
                                 }
                                 
                             }else{
@@ -587,6 +635,7 @@ int main(void)
                          if(IsMouseButtonPressed(0)&& party[0] != NULL){
                              activePKM = 0;
                              PartyMenu = false;
+                             turn = false;
                          }
                         
                     }else{
@@ -600,6 +649,7 @@ int main(void)
                         if(IsMouseButtonPressed(0) && party[1] != NULL){
                              activePKM = 1;
                              PartyMenu = false;
+                             turn = false;
                          }
                     }else{
                         DrawRectangleRounded({100, 300, 500, 200}, 0.2, 0, DEFCOLOR(0,0,0,100));
@@ -612,6 +662,7 @@ int main(void)
                         if(IsMouseButtonPressed(0) && party[2] != NULL){
                              activePKM = 2;
                              PartyMenu = false;
+                             turn = false;
                          }
                     }else{
                         DrawRectangleRounded({100, 550, 500, 200}, 0.2, 0, DEFCOLOR(0,0,0,100));
@@ -625,6 +676,7 @@ int main(void)
                         if(IsMouseButtonPressed(0) && party[3] != NULL){
                              activePKM = 3;
                              PartyMenu = false;
+                             turn = false;
                          }
                     }else{
                         DrawRectangleRounded({700, 50, 500, 200}, 0.2, 0, DEFCOLOR(0,0,0,100));
@@ -637,6 +689,7 @@ int main(void)
                         if(IsMouseButtonPressed(0)&& party[4] != NULL){
                              activePKM = 4;
                              PartyMenu = false;
+                             turn = false;
                          }
                     }else{
                         DrawRectangleRounded({700, 300, 500, 200}, 0.2, 0, DEFCOLOR(0,0,0,100));
@@ -649,6 +702,7 @@ int main(void)
                         if(IsMouseButtonPressed(0)&& party[5] != NULL){
                              activePKM = 5;
                              PartyMenu = false;
+                             turn = false;
                          }
                     }else{
                         DrawRectangleRounded({700, 550, 500, 200}, 0.2, 0, DEFCOLOR(0,0,0,100));
