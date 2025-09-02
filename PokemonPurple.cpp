@@ -17,6 +17,8 @@
 #include <vector>
 #include <fstream>
 #include <string>
+#include <cmath>
+#include <queue>
 
 #include "raylib.h"
 #include "Move.h"
@@ -59,7 +61,8 @@ int main(void)
     (health, name,  type,  level,  exp,  stage, spriteFront,  spriteBack, *moveset[4], stats{})
     */
      
-    
+     int win = 0;
+        
     //initializes camera values
     Camera2D camera = { 0 };
     camera.offset = {screenWidth/2.0f, screenHeight/2.0f };
@@ -70,12 +73,24 @@ int main(void)
     bool PartyMenu = false;
     bool moveMenu = false;
     
+    Move *movesTurn[] = {NULL, NULL};    
+    std::queue<Move*> moveRequests;
     bool turn;
+    float bobTimer = 0;
+    
+    bool atkANM = false;
+    bool atkANME= false;
+    
+    float timerATK = 0; 
+    float timerATKE = 0;
+    
+    Vector2 pkmPos = {100,225};
+    Vector2 pkmPosE = {1000,0};
     
     
     
-    bool loseE = false;
-    Pokemon *enemyTeam[6] = {new Pokemon(pokedex[GetRandomValue(0,8)]), NULL, NULL, NULL, NULL, NULL};
+    
+    Pokemon *enemyTeam[6] = {new Pokemon(pokedex[GetRandomValue(0,8)]), new Pokemon(pokedex[GetRandomValue(0,8)]), new Pokemon(pokedex[GetRandomValue(0,8)]), NULL, NULL, NULL};
     Pokemon *party[6] = {new Pokemon(pokedex[GetRandomValue(0,8)]), new Pokemon(pokedex[GetRandomValue(0,8)]), new Pokemon(pokedex[GetRandomValue(0,8)]),NULL, NULL,NULL};
     
     int activePKM = 0;
@@ -98,7 +113,23 @@ int main(void)
             checkTeam++;
         }
     }
-    if(checkTeam == 6) return 0;
+    if(checkTeam == 6) win = -1;
+    
+    if(party[activePKM]->fainted) PartyMenu = true;
+    
+    if(enemyTeam[activePKME]->fainted){
+        if(activePKME != 5){
+            if(enemyTeam[activePKME+1] != NULL){
+                activePKME++;
+            }else{
+                win = 1;
+            }
+            
+        }else{
+            win = 1;
+        }
+    }
+    
     
     
     if(!turn){
@@ -117,30 +148,94 @@ int main(void)
         }
         int moveNum = GetRandomValue(1,index);
         
-        if(moveNum == 1){
-            party[activePKM]->takeDamage(enemyTeam[activePKME]->moveset.Move1, enemyTeam[activePKME]);
-            turn = true;
-        }else if(moveNum == 2){
-            party[activePKM]->takeDamage(enemyTeam[activePKME]->moveset.Move1, enemyTeam[activePKME]);
-            turn = true;
-        }else if(moveNum == 3){
-            party[activePKM]->takeDamage(enemyTeam[activePKME]->moveset.Move1, enemyTeam[activePKME]);
-            turn = true;
-        }else if(moveNum == 4){
-            party[activePKM]->takeDamage(enemyTeam[activePKME]->moveset.Move1, enemyTeam[activePKME]);
-            turn = true;
+        if(!atkANM && !atkANME){
+           switch(moveNum){
+            case 1:
+                movesTurn[1] = enemyTeam[activePKME]->moveset.Move1;
+                turn = true;
+                break;
+            case 2:
+                movesTurn[1] = enemyTeam[activePKME]->moveset.Move2;
+                turn = true;
+                break;
+            case 3:
+                movesTurn[1] = enemyTeam[activePKME]->moveset.Move3;
+                turn = true;
+                break;
+            case 4:
+                movesTurn[1] = enemyTeam[activePKME]->moveset.Move4;
+                turn = true;
+                break;
+            } 
         }
-        
+         
     }
     
+      if(movesTurn[0] != NULL && movesTurn[1] != NULL && !atkANM && !atkANME){
+          if(movesTurn[0]->priority > movesTurn[1]->priority){
+              atkANM = true;
+
+          }else if(movesTurn[0]->priority < movesTurn[1]->priority){
+              atkANME = true;
+          
+          }else{
+              if(party[activePKM]->stats.Speed > enemyTeam[activePKME]->stats.Speed){
+                atkANM = true;
+
+              }else{
+                atkANME = true;
+
+              }
+          }
+      }
+      
+      if(IsKeyPressed(KEY_BACKSPACE)) party[activePKM]->health -= 10;
+        
+            if(bobTimer < 0.3 && !atkANM){
+                bobTimer += GetFrameTime();
+            }else if(!atkANM){
+                if(pkmPos.y == 225) pkmPos.y -= 5;
+                else pkmPos.y += 5;
+                bobTimer = 0;
+            }
+            if(atkANM){
+                if(timerATK < 0.1){
+                    timerATK += GetFrameTime();
+                }else{
+                    pkmPos = lerpV(pkmPos, pkmPosE, 0.15);
+                    if(pkmPos.x > 900){
+                        pkmPos = {100, 225};
+                        atkANM = false;
+                        enemyTeam[activePKME]->takeDamage(movesTurn[0], party[activePKM]);
+                        movesTurn[0] = NULL;
+                        if(movesTurn[1] != NULL) atkANME = true;
+                    }
+                    
+                } 
+            }
+             if(atkANME){
+                if(timerATKE < 0.1){
+                    timerATKE += GetFrameTime();
+                }else{
+                    pkmPosE = lerpV(pkmPosE, pkmPos, 0.15);
+                    if(pkmPosE.x < 150){
+                        pkmPosE = {1000, 0};
+                        atkANME = false;
+                        party[activePKM]->takeDamage(movesTurn[1], enemyTeam[activePKME]);
+                        movesTurn[1] = NULL;
+                        if(movesTurn[0] != NULL) atkANM = true;
+                    }
+                    
+                } 
+            }
+            
+      
       // Draw, where the scene actually gets rendered and drawn out
 
       
         BeginDrawing();
             
             
-            if(IsKeyPressed(KEY_BACKSPACE)) party[activePKM]->health -= 10;
-        
             
             //anything drawn inside of the BeginMode2D() and EndMode2D() are going to be drawn onto the world and wont move with the camera but anything drawn after EndMode2D() is drawn onto the screen and moves with the camera useful for UI
                 BeginMode2D(camera);
@@ -148,26 +243,19 @@ int main(void)
                 if(PartyMenu)ClearBackground(GRAY);   
                 else ClearBackground(WHITE);
                 DrawTextureEx(Background, {0,0}, 0, 6.3, WHITE);
-                
-                
-               
-                
-                
-                
-                
+
                 
                 EndMode2D();
                 
-                
-                if(!PartyMenu){
+                switch(win){
+                    case 0:
+                    if(!PartyMenu){
                     DrawTextureEx(baseE, {1000,325}, 0, 4.5, WHITE);
                     DrawTextureEx(baseP, {37,540}, 0, 4.5, WHITE);
                     
                     
-                    
-                    DrawTextureEx(party[activePKM]->spriteBack, {100,225}, 0, 1, WHITE);
-                    
-                    DrawTextureEx(enemyTeam[activePKME]->spriteFront, {1000,0}, 0, 1, WHITE);
+                    DrawTextureEx(enemyTeam[activePKME]->spriteFront, pkmPosE, 0, 1, WHITE);
+                    DrawTextureEx(party[activePKM]->spriteBack, pkmPos, 0, 1, WHITE);
                     
                     DrawRectangle(25, 675, 1125, 450,  DEFCOLOR(0,0,0,240));
                     
@@ -214,7 +302,8 @@ int main(void)
                         }
                     }else{
                         //move1
-                        if(party[activePKM]->moveset.Move1 != NULL){
+                        
+                        if(party[activePKM]->moveset.Move1 != NULL && !atkANM && !atkANME){
                             if(CheckCollisionPointRec({GetMouseX(), GetMouseY()}, {50, 700, 250, 150})){
                                 
 
@@ -269,7 +358,8 @@ int main(void)
                                 }
                                 
                                 if(IsMouseButtonPressed(0) && party[activePKM]->moveset.Move1->pp > 0){
-                                     enemyTeam[activePKME]->takeDamage(party[activePKM]->moveset.Move1, party[activePKM]);
+                                     movesTurn[0] = party[activePKM]->moveset.Move1; 
+                                     //enemyTeam[activePKME]->takeDamage(party[activePKM]->moveset.Move1, party[activePKM]);
                                      moveMenu = false;
                                      turn = false;
                                 }
@@ -308,7 +398,7 @@ int main(void)
                         }
                         
                         //move2
-                        if(party[activePKM]->moveset.Move2 != NULL){
+                        if(party[activePKM]->moveset.Move2 != NULL&& !atkANM && !atkANME){
                             if(CheckCollisionPointRec({GetMouseX(), GetMouseY()}, {325, 700, 250, 150})){
                                 
 
@@ -363,7 +453,8 @@ int main(void)
                                 }
                                 
                                 if(IsMouseButtonPressed(0) && party[activePKM]->moveset.Move2->pp > 0){
-                                     enemyTeam[activePKME]->takeDamage(party[activePKM]->moveset.Move2, party[activePKM]);
+                                     //enemyTeam[activePKME]->takeDamage(party[activePKM]->moveset.Move2, party[activePKM]);
+                                     movesTurn[0] = party[activePKM]->moveset.Move2; 
                                      moveMenu = false;
                                      turn = false;
                                 }
@@ -402,7 +493,7 @@ int main(void)
                             }
                             
                             //move3
-                        if(party[activePKM]->moveset.Move3 != NULL){
+                        if(party[activePKM]->moveset.Move3 != NULL&& !atkANM && !atkANME){
                             if(CheckCollisionPointRec({GetMouseX(), GetMouseY()}, {600, 700, 250, 150})){
                                 
 
@@ -457,7 +548,8 @@ int main(void)
                                 }
                                 
                                 if(IsMouseButtonPressed(0)  && party[activePKM]->moveset.Move3->pp > 0){
-                                     enemyTeam[activePKME]->takeDamage(party[activePKM]->moveset.Move3, party[activePKM]);
+                                     //enemyTeam[activePKME]->takeDamage(party[activePKM]->moveset.Move3, party[activePKM]);
+                                     movesTurn[0] = party[activePKM]->moveset.Move3; 
                                      moveMenu = false;
                                      turn = false;
                                 }
@@ -498,7 +590,7 @@ int main(void)
                             
                             
                             //move4
-                            if(party[activePKM]->moveset.Move4 != NULL){
+                            if(party[activePKM]->moveset.Move4 != NULL&& !atkANM && !atkANME){
                             if(CheckCollisionPointRec({GetMouseX(), GetMouseY()}, {875, 700, 250, 150})){
                                 
 
@@ -553,7 +645,8 @@ int main(void)
                                 }
                                 
                                 if(IsMouseButtonPressed(0) && party[activePKM]->moveset.Move4->pp > 0){
-                                     enemyTeam[activePKME]->takeDamage(party[activePKM]->moveset.Move4, party[activePKM]);
+                                     //enemyTeam[activePKME]->takeDamage(party[activePKM]->moveset.Move4, party[activePKM]);
+                                     movesTurn[0] = party[activePKM]->moveset.Move4; 
                                      moveMenu = false;
                                      turn = false;
                                 }
@@ -631,8 +724,9 @@ int main(void)
                     
                     if(CheckCollisionPointRec({GetMouseX(), GetMouseY()},{100, 50, 500, 200})){
                         DrawRectangleRounded({100, 50, 500, 200}, 0.2, 0, BLACK);
-                         if(party[0] != NULL)DrawText(party[0]->name.c_str(), 150, 75, 50, WHITE);
-                         if(IsMouseButtonPressed(0)&& party[0] != NULL){
+                         if(party[0] != NULL&& !party[0]->fainted)DrawText(party[0]->name.c_str(), 150, 75, 50, WHITE);
+                         else if(party[0] != NULL && party[0]->fainted)DrawText(party[0]->name.c_str(), 150, 75, 50, RED);
+                         if(IsMouseButtonPressed(0)&& party[0] != NULL && !party[0]->fainted){
                              activePKM = 0;
                              PartyMenu = false;
                              turn = false;
@@ -645,8 +739,9 @@ int main(void)
                     
                     if(CheckCollisionPointRec({GetMouseX(), GetMouseY()},{100, 300, 500, 200})){
                         DrawRectangleRounded({100, 300, 500, 200}, 0.2, 0, BLACK);
-                        if(party[1] != NULL)DrawText(party[1]->name.c_str(), 150, 325, 50, WHITE);
-                        if(IsMouseButtonPressed(0) && party[1] != NULL){
+                        if(party[1] != NULL&& !party[1]->fainted)DrawText(party[1]->name.c_str(), 150, 325, 50, WHITE);
+                        else if(party[1] != NULL && party[1]->fainted)DrawText(party[1]->name.c_str(), 150, 325, 50, RED);
+                        if(IsMouseButtonPressed(0) && party[1] != NULL && !party[1]->fainted){
                              activePKM = 1;
                              PartyMenu = false;
                              turn = false;
@@ -658,8 +753,9 @@ int main(void)
                     
                     if(CheckCollisionPointRec({GetMouseX(), GetMouseY()},{100, 550, 500, 200})){
                         DrawRectangleRounded({100, 550, 500, 200}, 0.2, 0, BLACK);
-                        if(party[2] != NULL)DrawText(party[2]->name.c_str(), 150, 575, 50, WHITE);
-                        if(IsMouseButtonPressed(0) && party[2] != NULL){
+                        if(party[2] != NULL&& !party[2]->fainted)DrawText(party[2]->name.c_str(), 150, 575, 50, WHITE);
+                        else if(party[2] != NULL && party[2]->fainted)DrawText(party[2]->name.c_str(), 150, 575, 50, RED);
+                        if(IsMouseButtonPressed(0) && party[2] != NULL && !party[2]->fainted){
                              activePKM = 2;
                              PartyMenu = false;
                              turn = false;
@@ -672,8 +768,9 @@ int main(void)
                     
                     if(CheckCollisionPointRec({GetMouseX(), GetMouseY()}, {700, 50, 500, 200})){
                         DrawRectangleRounded({700, 50, 500, 200}, 0.2, 0, BLACK);
-                        if(party[3] != NULL)DrawText(party[3]->name.c_str(), 750, 75, 50, WHITE);
-                        if(IsMouseButtonPressed(0) && party[3] != NULL){
+                        if(party[3] != NULL && party[3]->fainted)DrawText(party[3]->name.c_str(), 750, 75, 50, WHITE);
+                        else if(party[3] != NULL && party[3]->fainted)DrawText(party[3]->name.c_str(), 750, 75, 50, RED);
+                        if(IsMouseButtonPressed(0) && party[3] != NULL && !party[3]->fainted){
                              activePKM = 3;
                              PartyMenu = false;
                              turn = false;
@@ -685,8 +782,9 @@ int main(void)
                     
                     if(CheckCollisionPointRec({GetMouseX(), GetMouseY()},{700, 300, 500, 200})){
                         DrawRectangleRounded({700, 300, 500, 200}, 0.2, 0, BLACK);
-                        if(party[4] != NULL)DrawText(party[4]->name.c_str(), 750, 325, 50, WHITE);
-                        if(IsMouseButtonPressed(0)&& party[4] != NULL){
+                        if(party[4] != NULL&& !party[4]->fainted)DrawText(party[4]->name.c_str(), 750, 325, 50, WHITE);
+                        else if(party[4] != NULL && party[4]->fainted)DrawText(party[4]->name.c_str(), 750, 325, 50, RED);
+                        if(IsMouseButtonPressed(0)&& party[4] != NULL && !party[4]->fainted){
                              activePKM = 4;
                              PartyMenu = false;
                              turn = false;
@@ -698,8 +796,9 @@ int main(void)
                     
                     if(CheckCollisionPointRec({GetMouseX(), GetMouseY()},{700, 550, 500, 200})){
                         DrawRectangleRounded({700, 550, 500, 200}, 0.2, 0, BLACK);
-                        if(party[5] != NULL)DrawText(party[5]->name.c_str(), 750, 575, 50, WHITE);
-                        if(IsMouseButtonPressed(0)&& party[5] != NULL){
+                        if(party[5] != NULL&& !party[5]->fainted)DrawText(party[5]->name.c_str(), 750, 575, 50, WHITE);
+                        else if(party[5] != NULL && party[5]->fainted)DrawText(party[5]->name.c_str(), 750, 575, 50, RED);
+                        if(IsMouseButtonPressed(0)&& party[5] != NULL && !party[5]->fainted){
                              activePKM = 5;
                              PartyMenu = false;
                              turn = false;
@@ -712,23 +811,36 @@ int main(void)
                     
                     
                     
-                    
-                    if(CheckCollisionPointRec({GetMouseX(), GetMouseY()},{100, 800, 200, 75})){
-                        
-                        DrawRectangle(100, 800, 200, 75, RED);
-                        DrawText("Cancel", 110, 810, 50, WHITE);
-                        if(IsMouseButtonPressed(0))PartyMenu = false;
-                        
-                    }else{
-                       DrawRectangleLines(100, 800, 200, 75, RED);
-                        DrawText("Cancel", 110, 810, 50, RED);
-                        
+                    if(!party[activePKM]->fainted){
+                        if(CheckCollisionPointRec({GetMouseX(), GetMouseY()},{100, 800, 200, 75})){
+                            
+                            DrawRectangle(100, 800, 200, 75, RED);
+                            DrawText("Cancel", 110, 810, 50, WHITE);
+                            if(IsMouseButtonPressed(0))PartyMenu = false;
+                            
+                        }else{
+                           DrawRectangleLines(100, 800, 200, 75, RED);
+                            DrawText("Cancel", 110, 810, 50, RED);
+                            
+                        }
                     }
                   
 
-                }else{
+                    }else{
                     
+                    }
+                    
+                    break;
+                    
+                    case -1:
+                    DrawText("YOU LOSE PRESS SPACE TO CLOSE", 0, 0, 200, RED);
+                    if(IsKeyPressed(KEY_SPACE))return -1;
+                    break;
+                    case 1:
+                    DrawText("YOU WIN PRESS SPACE TO CLOSE", 0, 0, 50, GREEN);
+                    if(IsKeyPressed(KEY_SPACE))return 1;
                 }
+                
             
                 
             

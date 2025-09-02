@@ -62,7 +62,7 @@ class Pokemon{
         int base = (((float)(poke->level * 2)/5)+2) * (float)move->baseDmg;
         
         bool crit = false;
-        if(GetRandomValue(0, 100) < 50){
+        if(GetRandomValue(0, 100) < 6.25){
             crit = true;
         }
         
@@ -87,7 +87,10 @@ class Pokemon{
         health -= base;
         std::cout << "\n" << base <<  "\n";
         move->pp -= 1;
-        if(health <= 0) fainted = true;
+        if(health <= 0){
+            fainted = true;
+            health = 0;
+        }
     }
     
 };
