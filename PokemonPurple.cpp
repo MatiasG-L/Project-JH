@@ -90,8 +90,8 @@ int main(void)
     
     
     
-    Pokemon *enemyTeam[6] = {new Pokemon(pokedex[GetRandomValue(0,8)]), new Pokemon(pokedex[GetRandomValue(0,8)]), new Pokemon(pokedex[GetRandomValue(0,8)]), NULL, NULL, NULL};
-    Pokemon *party[6] = {new Pokemon(pokedex[GetRandomValue(0,8)]), new Pokemon(pokedex[GetRandomValue(0,8)]), new Pokemon(pokedex[GetRandomValue(0,8)]),NULL, NULL,NULL};
+    Pokemon *enemyTeam[6] = {new Pokemon(pokedex[GetRandomValue(0,11)]), new Pokemon(pokedex[GetRandomValue(0,11)]), new Pokemon(pokedex[GetRandomValue(0,11)]), NULL, NULL, NULL};
+    Pokemon *party[6] = {new Pokemon(pokedex[GetRandomValue(0,11)]), new Pokemon(pokedex[GetRandomValue(0,11)]), new Pokemon(pokedex[GetRandomValue(0,11)]),NULL, NULL,NULL};
     
     int activePKM = 0;
     int activePKME = 0;
@@ -199,10 +199,10 @@ int main(void)
                 bobTimer = 0;
             }
             if(atkANM){
-                if(timerATK < 0.1){
+                if(timerATK < 0.2){
                     timerATK += GetFrameTime();
                 }else{
-                    pkmPos = lerpV(pkmPos, pkmPosE, 0.15);
+                    pkmPos = lerpV(pkmPos, pkmPosE, 0.2);
                     if(pkmPos.x > 900){
                         pkmPos = {100, 225};
                         atkANM = false;
@@ -214,10 +214,10 @@ int main(void)
                 } 
             }
              if(atkANME){
-                if(timerATKE < 0.1){
+                if(timerATKE < 0.2){
                     timerATKE += GetFrameTime();
                 }else{
-                    pkmPosE = lerpV(pkmPosE, pkmPos, 0.15);
+                    pkmPosE = lerpV(pkmPosE, pkmPos, 0.2);
                     if(pkmPosE.x < 150){
                         pkmPosE = {1000, 0};
                         atkANME = false;

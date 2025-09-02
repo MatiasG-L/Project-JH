@@ -13,6 +13,18 @@ Pokemon constructer paramaters:
      Bulbasaur.spriteFront.width = 500;
      Bulbasaur.spriteFront.height = 500;
      
+     Pokemon Ivysaur("Ivysaur", "Grass", GetRandomValue(8,12), 0, 0, LoadTexture("Assets/Pokemon/Ivysaur/Ivysaur_front.png"), LoadTexture("Assets/Pokemon/Ivysaur/Ivysaur_back.png"), {new Move(tackle), new Move(VineWhip), NULL, NULL}, {60,62,63,80,80,60});
+     Ivysaur.spriteBack.width = 600;
+     Ivysaur.spriteBack.height = 600;
+     Ivysaur.spriteFront.width = 500;
+     Ivysaur.spriteFront.height = 500;
+     
+     Pokemon Venusaur("Venusaur", "Grass", GetRandomValue(8,12), 0, 0, LoadTexture("Assets/Pokemon/Venusaur/Venusaur_front.png"), LoadTexture("Assets/Pokemon/Venusaur/Venusaur_back.png"), {new Move(tackle), new Move(VineWhip), NULL, NULL}, {80,82,83,100,100,80});
+     Venusaur.spriteBack.width = 600;
+     Venusaur.spriteBack.height = 600;
+     Venusaur.spriteFront.width = 500;
+     Venusaur.spriteFront.height = 500;
+     
       Pokemon Squirtle("Squirtle", "Water", GetRandomValue(8,12), 0, 0, LoadTexture("Assets/Pokemon/Squirtle/Squirtle_front.png"), LoadTexture("Assets/Pokemon/Squirtle/Squirtle_back.png"), {new Move(tackle), new Move(Bubble), NULL, NULL},{44,48,65,50,64,43});
      Squirtle.spriteFront.width = 500;
      Squirtle.spriteFront.height = 500;
@@ -49,11 +61,17 @@ Pokemon constructer paramaters:
      Absol.spriteFront.width = 500;
      Absol.spriteFront.height = 500;
      
-      Pokemon Shroomish("Shroomish", "Poison", GetRandomValue(8,12), 0, 0, LoadTexture("Assets/Pokemon/Shroomish/Shroomish_front.png"), LoadTexture("Assets/Pokemon/Shroomish/Shroomish_back.png"), {new Move(tackle),  new Move(Acid),  NULL, NULL}, {60,40,60,40,60,35});
+      Pokemon Shroomish("Shroomish", "Grass", GetRandomValue(8,12), 0, 0, LoadTexture("Assets/Pokemon/Shroomish/Shroomish_front.png"), LoadTexture("Assets/Pokemon/Shroomish/Shroomish_back.png"), {new Move(tackle),  new Move(Acid),  NULL, NULL}, {60,40,60,40,60,35});
      Shroomish.spriteBack.width = 600;
      Shroomish.spriteBack.height = 600;
      Shroomish.spriteFront.width = 500;
      Shroomish.spriteFront.height = 500;
+     
+     Pokemon Breloom("Breloom", "Grass", GetRandomValue(8,12), 0, 0, LoadTexture("Assets/Pokemon/Breloom/Breloom_front.png"), LoadTexture("Assets/Pokemon/Breloom/Breloom_back.png"), {new Move(tackle),  new Move(Acid),  NULL, NULL}, {60,40,60,40,60,35});
+     Breloom.spriteBack.width = 600;
+     Breloom.spriteBack.height = 600;
+     Breloom.spriteFront.width = 500;
+     Breloom.spriteFront.height = 500;
      
       Pokemon Raltz("Raltz", "Psychic", GetRandomValue(8,12), 0, 0, LoadTexture("Assets/Pokemon/Raltz/Raltz_front.png"), LoadTexture("Assets/Pokemon/Raltz/Raltz_back.png"), {new Move(tackle), new Move(Psybeam), NULL, NULL}, {28, 25,25, 45,35,40});
      Raltz.spriteBack.width = 600;
@@ -61,4 +79,4 @@ Pokemon constructer paramaters:
      Raltz.spriteFront.width = 500;
      Raltz.spriteFront.height = 500;
 
-Pokemon pokedex[] = {Bulbasaur, Squirtle, Rayquaza, Treecko, Mudkip, Torchic, Absol, Shroomish, Raltz};
+Pokemon pokedex[] = {Bulbasaur, Ivysaur, Venusaur, Squirtle, Rayquaza, Treecko, Mudkip, Torchic, Absol, Shroomish, Breloom, Raltz};
