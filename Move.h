@@ -1,9 +1,10 @@
 #pragma once
+#include "GetTypeMatchUp.cpp"
 class Move{
     public:
     std::string name;
     int baseDmg;
-    std::string type;
+    int type;
     int pp;
     int maxPP;
     int accuracy;
@@ -11,7 +12,7 @@ class Move{
     std::string split;
     int moveContact;
     
-    Move(std::string name, int baseDmg, std::string type, int pp, int accuracy, int priority, std::string split, int moveContact){
+    Move(std::string name, int baseDmg, int type, int pp, int accuracy, int priority, std::string split, int moveContact){
         this->name = name;
         this->baseDmg = baseDmg;
         this->type = type;
