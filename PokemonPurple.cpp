@@ -548,67 +548,67 @@ int main(void)
                                 switch(party[activePKM]->moveset.Move3->type){
                                     
                                     case Fire:{
-                                        DrawRectangle(325, 725, 250, 150, RED);
+                                        DrawRectangle(600, 725, 250, 150, RED);
                                 
-                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 325, 725, 30, ORANGE);
+                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 625, 725, 30, ORANGE);
                                         std::string temp = "PP: "+std::to_string(party[activePKM]->moveset.Move3->pp)+" / "+std::to_string(party[activePKM]->moveset.Move3->maxPP);
-                                        DrawText(temp.c_str(), 350, 800, 25, ORANGE);
+                                        DrawText(temp.c_str(), 625, 800, 25, ORANGE);
                                         break;
                                     }
                                     case Water:{
-                                        DrawRectangle(325, 725, 250, 150, BLUE);
+                                        DrawRectangle(600, 725, 250, 150, BLUE);
                                 
-                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 350, 725, 30, SKYBLUE);
+                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 625, 725, 30, SKYBLUE);
                                         std::string temp = "PP: "+std::to_string(party[activePKM]->moveset.Move3->pp)+" / "+std::to_string(party[activePKM]->moveset.Move3->maxPP);
-                                        DrawText(temp.c_str(), 350, 800, 25, SKYBLUE);
+                                        DrawText(temp.c_str(), 625, 800, 25, SKYBLUE);
                                         break;
                                     }    
                                     case Normal:{
-                                         DrawRectangle(325, 725, 250, 150, WHITE);
+                                         DrawRectangle(600, 725, 250, 150, WHITE);
                                 
-                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 350, 725, 30, BLACK);
+                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 625, 725, 30, BLACK);
                                         std::string temp = "PP: "+std::to_string(party[activePKM]->moveset.Move3->pp)+" / "+std::to_string(party[activePKM]->moveset.Move3->maxPP);
-                                        DrawText(temp.c_str(), 350, 800, 25, BLACK);
+                                        DrawText(temp.c_str(), 625, 800, 25, BLACK);
                                         break;
                                     }
                                     case Grass:{
-                                        DrawRectangle(325, 725, 250, 150, GREEN);
+                                        DrawRectangle(600, 725, 250, 150, GREEN);
                                 
-                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 350, 725, 30, LIME);
+                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 625, 725, 30, LIME);
                                         std::string temp = "PP: "+std::to_string(party[activePKM]->moveset.Move3->pp)+" / "+std::to_string(party[activePKM]->moveset.Move3->maxPP);
-                                        DrawText(temp.c_str(), 350, 800, 25, LIME);
+                                        DrawText(temp.c_str(), 625, 800, 25, LIME);
                                         break;
                                     }
                                     case Poison:{
-                                        DrawRectangle(325, 725, 250, 150, DARKPURPLE);
+                                        DrawRectangle(600, 725, 250, 150, DARKPURPLE);
                                 
-                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 350, 725, 30, PURPLE);
+                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 625, 725, 30, PURPLE);
                                         std::string temp = "PP: "+std::to_string(party[activePKM]->moveset.Move3->pp)+" / "+std::to_string(party[activePKM]->moveset.Move3->maxPP);
-                                        DrawText(temp.c_str(), 350, 800, 25, PURPLE);
+                                        DrawText(temp.c_str(), 625, 800, 25, PURPLE);
                                         break;
                                     }
                                     case Dragon:{
-                                         DrawRectangle(325, 725, 250, 150, ORANGE);
+                                         DrawRectangle(600, 725, 250, 150, ORANGE);
                                 
-                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 350, 725, 30, YELLOW);
+                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 625, 725, 30, YELLOW);
                                         std::string temp = "PP: "+std::to_string(party[activePKM]->moveset.Move3->pp)+" / "+std::to_string(party[activePKM]->moveset.Move3->maxPP);
-                                        DrawText(temp.c_str(), 350, 800, 25, YELLOW);
+                                        DrawText(temp.c_str(), 625, 800, 25, YELLOW);
                                         break;
                                     }
                                     case Psychic:{
-                                         DrawRectangle(325, 725, 250, 150, PINK);
+                                         DrawRectangle(600, 725, 250, 150, PINK);
                                 
-                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 350, 725, 30, WHITE);
+                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 625, 725, 30, WHITE);
                                         std::string temp = "PP: "+std::to_string(party[activePKM]->moveset.Move3->pp)+" / "+std::to_string(party[activePKM]->moveset.Move3->maxPP);
-                                        DrawText(temp.c_str(), 350, 800, 25, WHITE);
+                                        DrawText(temp.c_str(), 625, 800, 25, WHITE);
                                         break;
                                     }
                                     case Dark:{
-                                        DrawRectangle(325, 725, 250, 150, DARKBROWN);
+                                        DrawRectangle(600, 725, 250, 150, DARKBROWN);
                                 
-                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 350, 725, 30, BROWN);
+                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 625, 725, 30, BROWN);
                                         std::string temp = "PP: "+std::to_string(party[activePKM]->moveset.Move3->pp)+" / "+std::to_string(party[activePKM]->moveset.Move3->maxPP);
-                                        DrawText(temp.c_str(), 350, 800, 25, BROWN);
+                                        DrawText(temp.c_str(), 625, 800, 25, BROWN);
                                         break;
                                     }
                                 };
@@ -626,36 +626,36 @@ int main(void)
                                  switch(party[activePKM]->moveset.Move3->type){
                                     
                                     case Fire:
-                                        DrawRectangleLines(325, 700, 250, 150, RED);
-                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 350, 750, 30, ORANGE);
+                                        DrawRectangleLines(600, 700, 250, 150, RED);
+                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 625, 750, 30, ORANGE);
                                         break;
                                     case Water:
-                                        DrawRectangleLines(325, 700, 250, 150, BLUE);
-                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 350, 750, 30, BLUE);
+                                        DrawRectangleLines(600, 700, 250, 150, BLUE);
+                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 625, 750, 30, BLUE);
                                         break;
                                     case Normal:
-                                        DrawRectangleLines(325, 700, 250, 150, WHITE);
-                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 350, 750, 30, WHITE);
+                                        DrawRectangleLines(600, 700, 250, 150, WHITE);
+                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 625, 750, 30, WHITE);
                                         break;
                                     case Grass:
-                                        DrawRectangleLines(325, 700, 250, 150, GREEN);
-                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 350, 750, 30, GREEN);
+                                        DrawRectangleLines(600, 700, 250, 150, GREEN);
+                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 625, 750, 30, GREEN);
                                         break;
                                     case Poison:
-                                        DrawRectangleLines(325, 700, 250, 150, DARKPURPLE);
-                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 350, 750, 30, DARKPURPLE);
+                                        DrawRectangleLines(600, 700, 250, 150, DARKPURPLE);
+                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 625, 750, 30, DARKPURPLE);
                                         break;
                                     case Dragon:
-                                        DrawRectangleLines(325, 700, 250, 150, ORANGE);
-                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 350, 750, 30, YELLOW);
+                                        DrawRectangleLines(600, 700, 250, 150, ORANGE);
+                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 625, 750, 30, YELLOW);
                                         break;
                                     case Psychic:
-                                        DrawRectangleLines(325, 700, 250, 150, PINK);
-                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 350, 750, 30, PINK);
+                                        DrawRectangleLines(600, 700, 250, 150, PINK);
+                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 625, 750, 30, PINK);
                                         break;
                                     case Dark:
-                                        DrawRectangleLines(325, 700, 250, 150, DARKBROWN);
-                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 350, 750, 30, DARKBROWN);
+                                        DrawRectangleLines(600, 700, 250, 150, DARKBROWN);
+                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 625, 750, 30, DARKBROWN);
                                         break;
                                     
                                 };
@@ -674,67 +674,67 @@ int main(void)
                                 switch(party[activePKM]->moveset.Move4->type){
                                     
                                     case Fire:{
-                                        DrawRectangle(325, 725, 250, 150, RED);
+                                        DrawRectangle(875, 725, 250, 150, RED);
                                 
-                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 325, 725, 30, ORANGE);
+                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 900, 725, 30, ORANGE);
                                         std::string temp = "PP: "+std::to_string(party[activePKM]->moveset.Move4->pp)+" / "+std::to_string(party[activePKM]->moveset.Move4->maxPP);
-                                        DrawText(temp.c_str(), 350, 800, 25, ORANGE);
+                                        DrawText(temp.c_str(), 900, 800, 25, ORANGE);
                                         break;
                                     }
                                     case Water:{
-                                        DrawRectangle(325, 725, 250, 150, BLUE);
+                                        DrawRectangle(875, 725, 250, 150, BLUE);
                                 
-                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 350, 725, 30, SKYBLUE);
+                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 900, 725, 30, SKYBLUE);
                                         std::string temp = "PP: "+std::to_string(party[activePKM]->moveset.Move4->pp)+" / "+std::to_string(party[activePKM]->moveset.Move4->maxPP);
-                                        DrawText(temp.c_str(), 350, 800, 25, SKYBLUE);
+                                        DrawText(temp.c_str(), 900, 800, 25, SKYBLUE);
                                         break;
                                     }
                                     case Normal:{
-                                         DrawRectangle(325, 725, 250, 150, WHITE);
+                                         DrawRectangle(875, 725, 250, 150, WHITE);
                                 
-                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 350, 725, 30, BLACK);
+                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 900, 725, 30, BLACK);
                                         std::string temp = "PP: "+std::to_string(party[activePKM]->moveset.Move4->pp)+" / "+std::to_string(party[activePKM]->moveset.Move4->maxPP);
-                                        DrawText(temp.c_str(), 350, 800, 25, BLACK);
+                                        DrawText(temp.c_str(), 900, 800, 25, BLACK);
                                         break;
                                     }
                                     case Grass:{
-                                        DrawRectangle(325, 725, 250, 150, GREEN);
+                                        DrawRectangle(875, 725, 250, 150, GREEN);
                                 
-                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 350, 725, 30, LIME);
+                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 900, 725, 30, LIME);
                                         std::string temp = "PP: "+std::to_string(party[activePKM]->moveset.Move4->pp)+" / "+std::to_string(party[activePKM]->moveset.Move4->maxPP);
-                                        DrawText(temp.c_str(), 350, 800, 25, LIME);
+                                        DrawText(temp.c_str(), 900, 800, 25, LIME);
                                         break;
                                     }
                                     case Poison:{
-                                        DrawRectangle(325, 725, 250, 150, DARKPURPLE);
+                                        DrawRectangle(875, 725, 250, 150, DARKPURPLE);
                                 
-                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 350, 725, 30, PURPLE);
+                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 900, 725, 30, PURPLE);
                                         std::string temp = "PP: "+std::to_string(party[activePKM]->moveset.Move4->pp)+" / "+std::to_string(party[activePKM]->moveset.Move4->maxPP);
-                                        DrawText(temp.c_str(), 350, 800, 25, PURPLE);
+                                        DrawText(temp.c_str(), 900, 800, 25, PURPLE);
                                         break;
                                     }
                                     case Dragon:{
-                                         DrawRectangle(325, 725, 250, 150, ORANGE);
+                                         DrawRectangle(875, 725, 250, 150, ORANGE);
                                 
-                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 350, 725, 30, YELLOW);
+                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 900, 725, 30, YELLOW);
                                         std::string temp = "PP: "+std::to_string(party[activePKM]->moveset.Move4->pp)+" / "+std::to_string(party[activePKM]->moveset.Move4->maxPP);
-                                        DrawText(temp.c_str(), 350, 800, 25, YELLOW);
+                                        DrawText(temp.c_str(), 900, 800, 25, YELLOW);
                                         break;
                                     }
                                     case Psychic:{
-                                         DrawRectangle(325, 725, 250, 150, PINK);
+                                         DrawRectangle(875, 725, 250, 150, PINK);
                                 
-                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 350, 725, 30, WHITE);
+                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 900, 725, 30, WHITE);
                                         std::string temp = "PP: "+std::to_string(party[activePKM]->moveset.Move4->pp)+" / "+std::to_string(party[activePKM]->moveset.Move4->maxPP);
-                                        DrawText(temp.c_str(), 350, 800, 25, WHITE);
+                                        DrawText(temp.c_str(), 900, 800, 25, WHITE);
                                         break;
                                     }
                                     case Dark:{
-                                        DrawRectangle(325, 725, 250, 150, DARKBROWN);
+                                        DrawRectangle(875, 725, 250, 150, DARKBROWN);
                                 
-                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 350, 725, 30, BROWN);
+                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 900, 725, 30, BROWN);
                                         std::string temp = "PP: "+std::to_string(party[activePKM]->moveset.Move4->pp)+" / "+std::to_string(party[activePKM]->moveset.Move4->maxPP);
-                                        DrawText(temp.c_str(), 350, 800, 25, BROWN);
+                                        DrawText(temp.c_str(), 900, 800, 25, BROWN);
                                         break;
                                     }
                                     
@@ -753,36 +753,36 @@ int main(void)
                                 switch(party[activePKM]->moveset.Move4->type){
                                     
                                     case Fire:
-                                        DrawRectangleLines(325, 700, 250, 150, RED);
-                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 350, 750, 30, ORANGE);
+                                        DrawRectangleLines(875, 700, 250, 150, RED);
+                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 900, 750, 30, ORANGE);
                                         break;
                                     case Water:
-                                        DrawRectangleLines(325, 700, 250, 150, BLUE);
-                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 350, 750, 30, BLUE);
+                                        DrawRectangleLines(875, 700, 250, 150, BLUE);
+                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 900, 750, 30, BLUE);
                                         break;
                                     case Normal:
-                                        DrawRectangleLines(325, 700, 250, 150, WHITE);
-                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 350, 750, 30, WHITE);
+                                        DrawRectangleLines(875, 700, 250, 150, WHITE);
+                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 900, 750, 30, WHITE);
                                         break;
                                     case Grass:
-                                        DrawRectangleLines(325, 700, 250, 150, GREEN);
-                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 350, 750, 30, GREEN);
+                                        DrawRectangleLines(875, 700, 250, 150, GREEN);
+                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 900, 750, 30, GREEN);
                                         break;
                                     case Poison:
-                                        DrawRectangleLines(325, 700, 250, 150, DARKPURPLE);
-                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 350, 750, 30, DARKPURPLE);
+                                        DrawRectangleLines(875, 700, 250, 150, DARKPURPLE);
+                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 900, 750, 30, DARKPURPLE);
                                         break;
                                     case Dragon:
-                                        DrawRectangleLines(325, 700, 250, 150, ORANGE);
-                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 350, 750, 30, YELLOW);
+                                        DrawRectangleLines(875, 700, 250, 150, ORANGE);
+                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 900, 750, 30, YELLOW);
                                         break;
                                     case Psychic:
-                                        DrawRectangleLines(325, 700, 250, 150, PINK);
-                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 350, 750, 30, PINK);
+                                        DrawRectangleLines(875, 700, 250, 150, PINK);
+                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 900, 750, 30, PINK);
                                         break;
                                     case Dark:
-                                        DrawRectangleLines(325, 700, 250, 150, DARKBROWN);
-                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 350, 750, 30, DARKBROWN);
+                                        DrawRectangleLines(875, 700, 250, 150, DARKBROWN);
+                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 900, 750, 30, DARKBROWN);
                                         break;
                                     
                                 };

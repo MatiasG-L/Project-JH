@@ -80,3 +80,9 @@ Pokemon constructer paramaters:
      Raltz.spriteFront.height = 500;
 
 Pokemon pokedex[] = {Bulbasaur, Ivysaur, Venusaur, Squirtle, Rayquaza, Treecko, Mudkip, Torchic, Absol, Shroomish, Breloom, Raltz};
+
+/*
+
+Remember to add a function that returns a pokemon searchable by either name or ID (overload)
+
+*/
