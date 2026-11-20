@@ -90,8 +90,8 @@ int main(void)
     
     
     
-    Pokemon *enemyTeam[6] = {new Pokemon(pokedex[GetRandomValue(0,11)]), new Pokemon(pokedex[GetRandomValue(0,11)]), new Pokemon(pokedex[GetRandomValue(0,11)]), NULL, NULL, NULL};
-    Pokemon *party[6] = {new Pokemon(pokedex[GetRandomValue(0,11)]), new Pokemon(pokedex[GetRandomValue(0,11)]), new Pokemon(pokedex[GetRandomValue(0,11)]),NULL, NULL,NULL};
+    Pokemon *enemyTeam[6] = {new Pokemon(pokedex[GetRandomValue(0, std::size(pokedex)-1)]), new Pokemon(pokedex[GetRandomValue(0,std::size(pokedex)-1)]), new Pokemon(pokedex[GetRandomValue(0,std::size(pokedex)-1)]), NULL, NULL, NULL};
+    Pokemon *party[6] = {new Pokemon(pokedex[GetRandomValue(0,std::size(pokedex)-1)]), new Pokemon(pokedex[GetRandomValue(0,std::size(pokedex)-1)]), new Pokemon(pokedex[GetRandomValue(0,std::size(pokedex)-1)]), NULL, NULL,NULL};
     
     int activePKM = 0;
     int activePKME = 0;
@@ -363,6 +363,20 @@ int main(void)
                                         DrawText(temp.c_str(), 75, 800, 25, BROWN);
                                         break;
                                      }
+                                     case Flying:{
+                                        DrawRectangle(50, 725, 250, 150, SKYBLUE);
+                                        DrawText(party[activePKM]->moveset.Move1->name.c_str(), 75, 725, 30, WHITE);
+                                        std::string temp = "PP: "+std::to_string(party[activePKM]->moveset.Move1->pp)+" / "+std::to_string(party[activePKM]->moveset.Move1->maxPP);
+                                        DrawText(temp.c_str(), 75, 800, 25, BROWN);
+                                        break;
+                                     }
+                                     case Electric:{
+                                        DrawRectangle(50, 725, 250, 150, YELLOW);
+                                        DrawText(party[activePKM]->moveset.Move1->name.c_str(), 75, 725, 30, WHITE);
+                                        std::string temp = "PP: "+std::to_string(party[activePKM]->moveset.Move1->pp)+" / "+std::to_string(party[activePKM]->moveset.Move1->maxPP);
+                                        DrawText(temp.c_str(), 75, 800, 25, BROWN);
+                                        break;
+                                     }
                                 };
                                 
                                 
@@ -409,6 +423,15 @@ int main(void)
                                     case Dark:
                                         DrawRectangleLines(50, 700, 250, 150, DARKBROWN);
                                         DrawText(party[activePKM]->moveset.Move1->name.c_str(), 75, 750, 30, DARKBROWN);
+                                        break;
+                                        
+                                    case Flying:
+                                        DrawRectangleLines(50, 700, 250, 150, SKYBLUE);
+                                        DrawText(party[activePKM]->moveset.Move1->name.c_str(), 75, 750, 30, SKYBLUE);
+                                        break;
+                                    case Electric:
+                                        DrawRectangleLines(50, 700, 250, 150, YELLOW);
+                                        DrawText(party[activePKM]->moveset.Move1->name.c_str(), 75, 750, 30, YELLOW);
                                         break;
                                     
                                 };
@@ -485,7 +508,23 @@ int main(void)
                                         std::string temp = "PP: "+std::to_string(party[activePKM]->moveset.Move2->pp)+" / "+std::to_string(party[activePKM]->moveset.Move2->maxPP);
                                         DrawText(temp.c_str(), 350, 800, 25, BROWN);
                                         break;
-                                    }    
+                                    }
+                                    case Flying:{
+                                        DrawRectangle(325, 725, 250, 150, SKYBLUE);
+                                
+                                        DrawText(party[activePKM]->moveset.Move2->name.c_str(), 350, 725, 30, WHITE);
+                                        std::string temp = "PP: "+std::to_string(party[activePKM]->moveset.Move2->pp)+" / "+std::to_string(party[activePKM]->moveset.Move2->maxPP);
+                                        DrawText(temp.c_str(), 350, 800, 25, BROWN);
+                                        break;
+                                    } 
+                                    case Electric:{
+                                        DrawRectangle(325, 725, 250, 150, YELLOW);
+                                
+                                        DrawText(party[activePKM]->moveset.Move2->name.c_str(), 350, 725, 30, WHITE);
+                                        std::string temp = "PP: "+std::to_string(party[activePKM]->moveset.Move2->pp)+" / "+std::to_string(party[activePKM]->moveset.Move2->maxPP);
+                                        DrawText(temp.c_str(), 350, 800, 25, BROWN);
+                                        break;
+                                    }
                                     
                                 };
                                 
@@ -534,7 +573,14 @@ int main(void)
                                         DrawRectangleLines(325, 700, 250, 150, DARKBROWN);
                                         DrawText(party[activePKM]->moveset.Move2->name.c_str(), 350, 750, 30, DARKBROWN);
                                         break;
-                                    
+                                    case Flying:
+                                        DrawRectangleLines(325, 700, 250, 150, SKYBLUE);
+                                        DrawText(party[activePKM]->moveset.Move2->name.c_str(), 350, 750, 30, SKYBLUE);
+                                        break;
+                                    case Electric:
+                                        DrawRectangleLines(325, 700, 250, 150, YELLOW);
+                                        DrawText(party[activePKM]->moveset.Move2->name.c_str(), 350, 750, 30, YELLOW);
+                                        break;
                                 };                                
                                 
                               }
@@ -611,6 +657,22 @@ int main(void)
                                         DrawText(temp.c_str(), 625, 800, 25, BROWN);
                                         break;
                                     }
+                                    case Flying:{
+                                        DrawRectangle(600, 725, 250, 150, SKYBLUE);
+                                
+                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 625, 725, 30, WHITE);
+                                        std::string temp = "PP: "+std::to_string(party[activePKM]->moveset.Move3->pp)+" / "+std::to_string(party[activePKM]->moveset.Move3->maxPP);
+                                        DrawText(temp.c_str(), 625, 800, 25, BROWN);
+                                        break;
+                                    }
+                                    case Electric:{
+                                        DrawRectangle(600, 725, 250, 150, YELLOW);
+                                
+                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 625, 725, 30, WHITE);
+                                        std::string temp = "PP: "+std::to_string(party[activePKM]->moveset.Move3->pp)+" / "+std::to_string(party[activePKM]->moveset.Move3->maxPP);
+                                        DrawText(temp.c_str(), 625, 800, 25, BROWN);
+                                        break;
+                                    }
                                 };
                                 
                                 if(IsMouseButtonPressed(0)  && party[activePKM]->moveset.Move3->pp > 0){
@@ -656,6 +718,14 @@ int main(void)
                                     case Dark:
                                         DrawRectangleLines(600, 700, 250, 150, DARKBROWN);
                                         DrawText(party[activePKM]->moveset.Move3->name.c_str(), 625, 750, 30, DARKBROWN);
+                                        break;
+                                    case Flying:
+                                        DrawRectangleLines(600, 700, 250, 150, SKYBLUE);
+                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 625, 750, 30, SKYBLUE);
+                                        break;
+                                    case Electric:
+                                        DrawRectangleLines(600, 700, 250, 150, YELLOW);
+                                        DrawText(party[activePKM]->moveset.Move3->name.c_str(), 625, 750, 30, YELLOW);
                                         break;
                                     
                                 };
@@ -737,6 +807,22 @@ int main(void)
                                         DrawText(temp.c_str(), 900, 800, 25, BROWN);
                                         break;
                                     }
+                                    case Flying:{
+                                        DrawRectangle(875, 725, 250, 150, SKYBLUE);
+                                
+                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 900, 725, 30, WHITE);
+                                        std::string temp = "PP: "+std::to_string(party[activePKM]->moveset.Move4->pp)+" / "+std::to_string(party[activePKM]->moveset.Move4->maxPP);
+                                        DrawText(temp.c_str(), 900, 800, 25, BROWN);
+                                        break;
+                                    }
+                                    case Electric:{
+                                        DrawRectangle(875, 725, 250, 150, YELLOW);
+                                
+                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 900, 725, 30, WHITE);
+                                        std::string temp = "PP: "+std::to_string(party[activePKM]->moveset.Move4->pp)+" / "+std::to_string(party[activePKM]->moveset.Move4->maxPP);
+                                        DrawText(temp.c_str(), 900, 800, 25, BROWN);
+                                        break;
+                                    }
                                     
                                 };
                                 
@@ -783,6 +869,14 @@ int main(void)
                                     case Dark:
                                         DrawRectangleLines(875, 700, 250, 150, DARKBROWN);
                                         DrawText(party[activePKM]->moveset.Move4->name.c_str(), 900, 750, 30, DARKBROWN);
+                                        break;
+                                    case Flying:
+                                        DrawRectangleLines(875, 700, 250, 150, SKYBLUE);
+                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 900, 750, 30, SKYBLUE);
+                                        break;
+                                    case Electric:
+                                        DrawRectangleLines(875, 700, 250, 150, YELLOW);
+                                        DrawText(party[activePKM]->moveset.Move4->name.c_str(), 900, 750, 30, YELLOW);
                                         break;
                                     
                                 };

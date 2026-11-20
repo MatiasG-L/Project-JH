@@ -3,6 +3,15 @@
 #include "GetTypeMatchUp.cpp"
 #pragma once
 class Pokemon{
+    
+    enum StatusConditonNV {
+        Poisoned,
+        Burned,
+        Asleep,
+        Paralyzed,
+        Frozen
+    };
+    
     public:
     
     int health;
