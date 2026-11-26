@@ -72,7 +72,7 @@ int main(void)
     
     bool PartyMenu = false;
     bool moveMenu = false;
-    
+    //moves turn is a array with 2 indexes movesTurn[0] is meant only for the player to store its selected move to be used movesTurn[1] if for the oponents pokemon
     Move *movesTurn[] = {NULL, NULL};
     bool turn;
     float bobTimer = 0;
@@ -96,7 +96,7 @@ int main(void)
     int activePKME = 0;
     SetTargetFPS(60);
     //--------------------------------------------------------------------------------------
-    
+    //determines turn order based on pokemon speed (although actual order of attack will be determined later on)
     if(party[activePKM]->stats.Speed > enemyTeam[activePKME]->stats.Speed){
         turn = true;
     }else{
@@ -106,6 +106,7 @@ int main(void)
     
     while (!WindowShouldClose()){    // Detect window close button or ESC key
     
+    //cycles through your team to check if all pokemon have fainted if so win -1 leading to a loss
     int checkTeam = 0;
     for(int i = 0; i < 6; i++){
         if(party[i] == NULL || party[i]->fainted){
@@ -113,13 +114,17 @@ int main(void)
         }
     }
     if(checkTeam == 6) win = -1;
-    
+    //upon your active pokemon fainting it forces the party menu open and cancels your attack animation and clears your move from the turn
     if(party[activePKM]->fainted){
         PartyMenu = true;
         atkANM = false;
         movesTurn[0] = NULL;
     }
     
+    //upon your oponents pokemon fainting it forces the enemy into the pokemon of the next slot over not greater than 6 or until current slot +1 = NULL which ever comes sooner
+    //if your oponents active pokemon in slot 6 (enemyTeam[5]) faints win 1 leading to a victory
+    //Or if your oponents active pokemon faints and the next slot over is NULL win 1 leading to a victory
+    //it cancels your oponents animation and clears their move upon fainting
     if(enemyTeam[activePKME]->fainted){
         if(activePKME != 5){
             if(enemyTeam[activePKME+1] != NULL){
@@ -136,8 +141,10 @@ int main(void)
     }
     
     
-    
+    //enemy turn
     if(!turn){
+        //at times your oponents active pokemon may not have all 4 move slots filled in which case it cycles through for each slot != NULL it increments index
+        //this allows the program to know how much moves the active pokemon has availible
         int index = 0;
         if(enemyTeam[activePKME]->moveset.Move1 != NULL){
            index++;
@@ -151,8 +158,13 @@ int main(void)
         if(enemyTeam[activePKME]->moveset.Move4 != NULL){
            index++;
         }
+        //given the number obtianed from indexing the move list the oponets active pokemons move is chosen at random from 1 (min) to a max determined by index as determined previously
         int moveNum = GetRandomValue(1,index);
         
+        //the moveNum as determined earlier becomes the move the pokemon uses and this move gets put in movesTurn[1] which is the oponents designated index 
+        //upon adding the selected move into its designated slot the turn is ended and control is handed to the player
+        //(Please note the players move selection is located with the GUI code)
+        //this only runs as long as no pokemon is attacking
         if(!atkANM && !atkANME){
            switch(moveNum){
             case 1:
@@ -175,7 +187,9 @@ int main(void)
         }
          
     }
-    
+    //once both slots of the movesTurn array are filled meaning the attacks to be used have been selected it determines who goes first 
+    //checking move priority first and then pokemon speed 
+    //once a pokemon is selected to go first their attack animation begins playing
       if(movesTurn[0] != NULL && movesTurn[1] != NULL && !atkANM && !atkANME){
           if(movesTurn[0]->priority > movesTurn[1]->priority){
               atkANM = true;
@@ -196,6 +210,8 @@ int main(void)
       
       if(IsKeyPressed(KEY_BACKSPACE)) party[activePKM]->health -= 10;
         
+        
+            //timer in charge of timing the pokemons bob animation (up and down motion when idle)
             if(bobTimer < 0.3 && !atkANM){
                 bobTimer += GetFrameTime();
             }else if(!atkANM){
@@ -203,6 +219,8 @@ int main(void)
                 else pkmPos.y += 5;
                 bobTimer = 0;
             }
+            //Player attack animation this is where the player deals damage to the enemy and when the player moves over to the enemy for its attack
+            //upon completing this animation the delegated slot in the movesTurn array is set to NULL
             if(atkANM && !party[activePKM]->fainted){
                 if(timerATK < 0.4){
                     timerATK += GetFrameTime();
@@ -213,14 +231,16 @@ int main(void)
                         atkANM = false;
                         enemyTeam[activePKME]->takeDamage(movesTurn[0], party[activePKM]);
                         movesTurn[0] = NULL;
+                        //checks to see if the enemies slot in movesTurn is NULL if isnt this means the enemy is waiting to attack and it hands the control over to them
                         if(movesTurn[1] != NULL) atkANME = true;
                     }
                     
                 } 
             }else if(atkANM && !party[activePKM]->fainted){
-                atkANM = false;
-
+                atkANM = false;//safe gaurd to ensure a pokemon doesnt attack after fainting although likely redundant
             }
+            //similar to the player attack animation this is where the enemy does damage to the player 
+            //upon completion it clears its slot in movesTurn to NULL
              if(atkANME && !enemyTeam[activePKME]->fainted){
                 if(timerATKE < 0.4){
                     timerATKE += GetFrameTime();
@@ -231,12 +251,13 @@ int main(void)
                         atkANME = false;
                         party[activePKM]->takeDamage(movesTurn[1], enemyTeam[activePKME]);
                         movesTurn[1] = NULL;
+                        ////checks the players slot in movesTurn if it isnt NULL then the player is waiting to attack and it hands control over to the player
                         if(movesTurn[0] != NULL) atkANM = true;
                     }
                     
                 } 
             }else if(atkANME && enemyTeam[activePKME]->fainted){
-                atkANME = false;
+                atkANME = false;//safe gaurd to ensure a pokemon doesnt attack after fainting although likely redundant
             }
             
       
