@@ -73,8 +73,7 @@ int main(void)
     bool PartyMenu = false;
     bool moveMenu = false;
     
-    Move *movesTurn[] = {NULL, NULL};    
-    std::queue<Move*> moveRequests;
+    Move *movesTurn[] = {NULL, NULL};
     bool turn;
     float bobTimer = 0;
     
@@ -115,12 +114,18 @@ int main(void)
     }
     if(checkTeam == 6) win = -1;
     
-    if(party[activePKM]->fainted) PartyMenu = true;
+    if(party[activePKM]->fainted){
+        PartyMenu = true;
+        atkANM = false;
+        movesTurn[0] = NULL;
+    }
     
     if(enemyTeam[activePKME]->fainted){
         if(activePKME != 5){
             if(enemyTeam[activePKME+1] != NULL){
                 activePKME++;
+                atkANM = false;
+                movesTurn[0] = NULL;
             }else{
                 win = 1;
             }
@@ -198,7 +203,7 @@ int main(void)
                 else pkmPos.y += 5;
                 bobTimer = 0;
             }
-            if(atkANM){
+            if(atkANM && !party[activePKM]->fainted){
                 if(timerATK < 0.4){
                     timerATK += GetFrameTime();
                 }else{
@@ -212,8 +217,11 @@ int main(void)
                     }
                     
                 } 
+            }else if(atkANM && !party[activePKM]->fainted){
+                atkANM = false;
+
             }
-             if(atkANME){
+             if(atkANME && !enemyTeam[activePKME]->fainted){
                 if(timerATKE < 0.4){
                     timerATKE += GetFrameTime();
                 }else{
@@ -227,6 +235,8 @@ int main(void)
                     }
                     
                 } 
+            }else if(atkANME && enemyTeam[activePKME]->fainted){
+                atkANME = false;
             }
             
       

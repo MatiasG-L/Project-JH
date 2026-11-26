@@ -91,10 +91,11 @@ class Pokemon{
     }
     
     void takeDamage(Move *move, Pokemon *poke){
-        int base = (((float)(poke->level * 2)/5)+2) * (float)move->baseDmg;//calculates a base damage
+        float base = ((((float)(poke->level * 2))/5)+2) * (float)move->baseDmg;//calculates a base damage
         
         bool crit = false;
-        if(GetRandomValue(0, 100) < 6.25){//determines a crit
+
+        if((float)GetRandomValue(0, 100) < 6.25){//determines a crit
             crit = true;
         }
         
@@ -118,14 +119,17 @@ class Pokemon{
         }
         
         if(crit) base *= typeBonus * 2;
+        else base *= typeBonus;
         base *= ((float)GetRandomValue(217, 255)/255);
 
         health -= base;
-        std::cout << "\n" << base <<  "\n";
+        std::cout << poke->name << " used " << move->name <<" " << name << " took " << (int)base << " damage\n\n";
+        if(typeBonus > 1) std::cout << move->name << " is super effective agiasnt " << name << std::endl << std::endl;
         move->pp -= 1;
         if(health <= 0){
             fainted = true;
             health = 0;
+            std::cout << name << " has fainted!\n\n";
         }
     }
     
