@@ -1,6 +1,6 @@
 #include "raylib.h"
 #include "Move.h"
-#include "GetTypeMatchUp.cpp"
+#include "../Source Code/GetTypeMatchUp.cpp"
 #pragma once
 class Pokemon{
     

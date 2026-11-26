@@ -1,5 +1,5 @@
 #pragma once
-#include "GetTypeMatchUp.cpp"
+#include "../Source Code/GetTypeMatchUp.cpp"
 class Move{
     public:
     std::string name;

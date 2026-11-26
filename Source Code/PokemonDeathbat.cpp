@@ -20,11 +20,11 @@
 #include <cmath>
 #include <queue>
 
-#include "raylib.h"
-#include "Move.h"
-#include "Pokemon.h"
+#include "../Resources/raylib.h"
+#include "../Resources/Move.h"
+#include "../Resources/Pokemon.h"
 #include "GetTypeMatchUp.cpp"
-#include "Movepool.h"
+#include "../Resources/Movepool.h"
 
 //------------------------------------------------------------------------------------
 // Program main entry point
@@ -45,17 +45,17 @@ int main(void)
     
     
     
-    InitWindow(screenWidth, screenHeight, " |Pokemon Purple Version| "); //initilisation of the window 
+    InitWindow(screenWidth, screenHeight, " |Pokemon Deathbat Version| "); //initilisation of the window 
 
     // NOTE: Textures MUST be loaded after Window initialization (OpenGL context is required)
     #include "Pokedex.cpp"
     
     
-    Texture2D baseE = LoadTexture("Assets/Battle Assets/Battle Base Grass Opp.png");
-    Texture2D Background = LoadTexture("Assets/Battle Assets/Background Grass.png");
-    Texture2D baseP = LoadTexture("Assets/Battle Assets/Battle Base Grass Ally.png");
-    Texture2D HPboxP = LoadTexture("Assets/Battle Assets/PlayerHPBox.png");
-    Texture2D HPboxE = LoadTexture("Assets/Battle Assets/EnemyHPBox.png");
+    Texture2D baseE = LoadTexture("../Assets/Battle Assets/Battle Base Grass Opp.png");
+    Texture2D Background = LoadTexture("../Assets/Battle Assets/Background Grass.png");
+    Texture2D baseP = LoadTexture("../Assets/Battle Assets/Battle Base Grass Ally.png");
+    Texture2D HPboxP = LoadTexture("../Assets/Battle Assets/PlayerHPBox.png");
+    Texture2D HPboxE = LoadTexture("../Assets/Battle Assets/EnemyHPBox.png");
     /*
     Pokemon constructer paramaters:
     (health, name,  type,  level,  exp,  stage, spriteFront,  spriteBack, *moveset[4], stats{})

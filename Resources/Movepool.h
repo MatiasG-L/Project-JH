@@ -1,5 +1,5 @@
 #include "Move.h"
-#include "GetTypeMatchUp.cpp"
+#include "../Source Code/GetTypeMatchUp.cpp"
 #pragma once
 /*
 Move constructer paramaters:
