@@ -86,6 +86,14 @@ int main(void)
     Vector2 pkmPos = {100,225};
     Vector2 pkmPosE = {1000,0};
     
+    bool flash = false;
+    bool flashE = false;
+    
+    int flashCounter = 0;
+    int flashCounterE = 0;
+    
+    float flashTimer = 0;
+    float flashTimerE = 0;
     
     
     
@@ -222,13 +230,14 @@ int main(void)
             //Player attack animation this is where the player deals damage to the enemy and when the player moves over to the enemy for its attack
             //upon completing this animation the delegated slot in the movesTurn array is set to NULL
             if(atkANM && !party[activePKM]->fainted){
-                if(timerATK < 0.4){
+                if(timerATK < 0.5){
                     timerATK += GetFrameTime();
                 }else{
                     pkmPos = lerpV(pkmPos, pkmPosE, 0.1);
                     if(pkmPos.x > 900){
                         pkmPos = {100, 225};
                         atkANM = false;
+                        flashE = true;
                         enemyTeam[activePKME]->takeDamage(movesTurn[0], party[activePKM]);
                         movesTurn[0] = NULL;
                         //checks to see if the enemies slot in movesTurn is NULL if isnt this means the enemy is waiting to attack and it hands the control over to them
@@ -239,16 +248,17 @@ int main(void)
             }else if(atkANM && !party[activePKM]->fainted){
                 atkANM = false;//safe gaurd to ensure a pokemon doesnt attack after fainting although likely redundant
             }
-            //similar to the player attack animation this is where the enemy does damage to the player 
+            //enemy attack animation similar to the player attack animation this is where the enemy does damage to the player 
             //upon completion it clears its slot in movesTurn to NULL
              if(atkANME && !enemyTeam[activePKME]->fainted){
-                if(timerATKE < 0.4){
+                if(timerATKE < 0.5){
                     timerATKE += GetFrameTime();
                 }else{
                     pkmPosE = lerpV(pkmPosE, pkmPos, 0.1);
                     if(pkmPosE.x < 150){
                         pkmPosE = {1000, 0};
                         atkANME = false;
+                        flash = true;
                         party[activePKM]->takeDamage(movesTurn[1], enemyTeam[activePKME]);
                         movesTurn[1] = NULL;
                         ////checks the players slot in movesTurn if it isnt NULL then the player is waiting to attack and it hands control over to the player
@@ -284,9 +294,43 @@ int main(void)
                     DrawTextureEx(baseE, {1000,325}, 0, 4.5, WHITE);
                     DrawTextureEx(baseP, {37,540}, 0, 4.5, WHITE);
                     
+                   //if the flashE is true than every 0.08 of a second it increments to the counter until it hits 6
+                    if(flashTimerE < 0.08 && flashE){
+                        flashTimerE += GetFrameTime();                     
+                    }else if(flashE){
+                        flashCounterE++;
+                        flashTimerE = 0;
+                        if(flashCounterE > 6){
+                            flashE = false;
+                            flashCounterE = 0;
+                        }
+                    }
+                    //if the counter is even or 0 then the oponents texture is draw regularly
+                    if(flashCounterE % 2 == 0 || flashCounterE == 0){
+                        DrawTextureEx(enemyTeam[activePKME]->spriteFront, pkmPosE, 0, 1, WHITE);
+                    }else{//if its odd then its drawn transparent this way it cylcles through them giving a blinking or flashing effect
+                        DrawTextureEx(enemyTeam[activePKME]->spriteFront, pkmPosE, 0, 1, SEMICLEAR);
+                    }
                     
-                    DrawTextureEx(enemyTeam[activePKME]->spriteFront, pkmPosE, 0, 1, WHITE);
-                    DrawTextureEx(party[activePKM]->spriteBack, pkmPos, 0, 1, WHITE);
+                    //if the flash is true than every 0.08 of a second it increments to the counter until it hits 6
+                    if(flashTimer < 0.08 && flash){
+                        flashTimer += GetFrameTime();                     
+                    }else if(flash){
+                        flashCounter++;
+                        flashTimer = 0;
+                        if(flashCounter > 6){
+                            flash = false;
+                            flashCounter = 0;
+                        }
+                    }
+                    //if the counter is even or 0 then the oponents texture is draw regularly
+                    if(flashCounter % 2 == 0 || flashCounter == 0){
+                        DrawTextureEx(party[activePKM]->spriteBack, pkmPos, 0, 1, WHITE);
+                    }else{//if its odd then its drawn transparent this way it cylcles through them giving a blinking or flashing effect
+                        DrawTextureEx(party[activePKM]->spriteBack, pkmPos, 0, 1, SEMICLEAR);
+                    }
+
+                    //DrawTextureEx(party[activePKM]->spriteBack, pkmPos, 0, 1, SEMICLEAR);
                     
                     DrawRectangle(25, 675, 1125, 450,  DEFCOLOR(0,0,0,240));
                     
